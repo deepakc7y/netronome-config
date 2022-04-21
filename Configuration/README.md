@@ -17,3 +17,5 @@
 SR-IOV is a PCI feature that allows virtual functions (VFs) to be created from a physical function (PF). The VFs thus share the resources of a PF, while VFs remain isolated from each other. The isolated VFs are typically assigned to virtual machines (VMs) on the host. In this way, the VFs allow the VMs to directly access the PCI device, thereby bypassing the host kernel. [Source](https://help.netronome.com/support/solutions/articles/36000049975-basic-firmware-user-guide#using-sr-iov)
 
 By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), you have to enable the SRIOV Support. In the Asus Motherboard, the 'SRIOV Support' option can be found under 'PCI Subsystem Settings' and can be enabled.
+
+<img src="https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/images/SRIOV-BIOS-Asus.png" width="400">
