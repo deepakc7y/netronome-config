@@ -27,13 +27,15 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 It can be done using the following commands
 
 ```
-**lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)**
+lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)
+
 zenlab@zenlab690:~$ sudo lspci -d19ee:
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
 ``` 
 
 ```
 dmesg | grep nfp to check for system-generated messages the SmartNIC
+
 zenlab@zenlab690:~$ dmesg | grep nfp
 [    1.011845] nfp: NFP PCIe Driver, Copyright (C) 2014-2017 Netronome Systems
 [    1.011947] nfp 0000:03:00.0: Netronome Flow Processor NFP4000/NFP5000/NFP6000 PCIe Card Probe
