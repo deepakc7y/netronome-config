@@ -47,3 +47,17 @@ zenlab@zenlab690:~$ dmesg | grep nfp
 [    1.020478] nfp 0000:03:00.0: Failed to access the NSP: -16
 [    1.020549] nfp: probe of 0000:03:00.0 failed with error -16
 ``` 
+
+### Ensure that ERR47 Kernel Patch is already done
+	
+Linux kernels exhibit undesired behavior in PCIe configuration code. Netronome submitted a fix to the kernel maintainers for this issue which has been accepted into kernel version 4.5.
+
+You can check for the Kernel patch using this command:
+
+```
+root@zenlab690:~# if /opt/nfp_pif/scripts/err47_check.sh; then echo "Kernel is good"; else
+> echo "Kernel patch needed"; fi
+Kernel is good
+```
+
+If Kernel patch is needed, refer to this article [[Link]](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
