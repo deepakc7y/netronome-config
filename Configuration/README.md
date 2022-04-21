@@ -25,17 +25,12 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 ### Ensure that the Netronome Card appears as one of the Ethernet Controllers. It can be done using the following commands
 
 ```
-{
-  "firstName": "John",
-  "lastName": "Smith",
-  "age": 25
-}
-``` 
-
 lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)
 zenlab@zenlab690:~$ sudo lspci -d19ee:
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
+``` 
 
+```
 dmesg | grep nfp to check for system-generated messages the SmartNIC
 zenlab@zenlab690:~$ dmesg | grep nfp
 [    1.011845] nfp: NFP PCIe Driver, Copyright (C) 2014-2017 Netronome Systems
@@ -47,3 +42,4 @@ zenlab@zenlab690:~$ dmesg | grep nfp
 [    1.020474] nfp 0000:03:00.0: nfp_nsp: Service processor busy!
 [    1.020478] nfp 0000:03:00.0: Failed to access the NSP: -16
 [    1.020549] nfp: probe of 0000:03:00.0 failed with error -16
+``` 
