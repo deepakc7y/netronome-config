@@ -27,7 +27,7 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 It can be done using the following commands
 
 ```
-lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)
+**lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)**
 zenlab@zenlab690:~$ sudo lspci -d19ee:
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
 ``` 
