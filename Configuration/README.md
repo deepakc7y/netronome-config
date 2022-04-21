@@ -23,7 +23,15 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 [[Image Source]](https://dlcdnets.asus.com/pub/ASUS/mb/13MANUAL/PRIME_PROART_TUF_GAMING_Intel_600_Series_BIOS_EM_WEB_EN.pdf)
 
 ### Ensure that the Netronome Card appears as one of the Ethernet Controllers. It can be done using the following commands
-	
+
+```
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25
+}
+``` 
+
 lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)
 zenlab@zenlab690:~$ sudo lspci -d19ee:
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
