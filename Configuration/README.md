@@ -60,7 +60,7 @@ root@zenlab690:~# if /opt/nfp_pif/scripts/err47_check.sh; then echo "Kernel is g
 Kernel is good
 ```
 
-If Kernel patch is needed, refer to this article [[Link]](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
+If Kernel patch is needed, refer to [this article](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
 
 ### Enable nfp_dev_cpp
 
