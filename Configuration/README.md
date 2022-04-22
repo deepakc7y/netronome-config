@@ -69,6 +69,14 @@ One of the ways to access the SmartNIC is using the nfp_dev_cpp. The in-tree ver
 Download the nfp-drv-kmods repository from here [[Link]](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
 
 ```
+- make
+- make install
+- depmod -a
+- make clean
+- cat /sys/module/nfp/parameters/nfp_dev_cpp to check the value of nfp_dev_cpp
+- sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1 to remove and reload the nfp module and set nfp_dev_cpp = 1
+```
+```
 zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make
 make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules
 make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
@@ -183,7 +191,7 @@ zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_d
 cat: /sys/module/nfp/parameters/nfp_dev_cpp: No such file or directory
 ```
 ```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=0 nfp_dev_cpp=1
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
 rmmod nfp
 rmmod tls
 ```
