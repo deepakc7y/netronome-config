@@ -61,3 +61,133 @@ Kernel is good
 ```
 
 If Kernel patch is needed, refer to this article [[Link]](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
+
+### Enable nfp_dev_cpp
+
+One of the ways to access the SmartNIC is using the nfp_dev_cpp. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
+
+Download the nfp-drv-kmods repository from here [[Link]](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
+
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make
+make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp6000_pcie.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_cppcore.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_cpplib.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_dev.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_em_manager.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_hwinfo.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_mip.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_mutex.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nbi.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nffw.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp_cmds.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp_eth.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_platform.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_resource.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_rtsym.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_target.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nbi_mac_eth.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_net_vnic.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_debugdump.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_plat.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_hwmon.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_dev_cpp.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_export.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfd3/dp.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfd3/rings.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfdk/dp.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfdk/rings.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_app.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/ccm_mbox.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_ctrl.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_common.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_compat.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_dp.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_ethtool.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_debugfs.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_sriov.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_port.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/crypto/tls.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_app_nic.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_ctrl.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nic/main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_devlink.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/devlink_param.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_shared_buf.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/ccm.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_asm.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/cmsg.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/offload.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/verifier.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/jit.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_repr.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/action.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/cmsg.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/lag_conf.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/match.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/metadata.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/offload.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/tunnel_conf.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/qos_conf.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/cls.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/ctrl.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/main.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/qdisc.o
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_netvf_main.o
+  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.mod.o
+  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make install
+make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
+  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_main.o
+  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
+make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules_install
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
+  INSTALL /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
+At main.c:160:
+- SSL error:02001002:system library:fopen:No such file or directory: ../crypto/bio/bss_file.c:72
+- SSL error:2006D080:BIO routines:BIO_new_file:no such file: ../crypto/bio/bss_file.c:79
+sign-file: certs/signing_key.pem: No such file or directory
+  DEPMOD  5.4.0-107-generic
+Warning: modules_install: missing 'System.map' file. Skipping depmod.
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo depmod -a
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make clean
+make -C /lib/modules/5.4.0-107-generic/build M=`pwd` clean
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_dev_cpp
+cat: /sys/module/nfp/parameters/nfp_dev_cpp: No such file or directory
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=0 nfp_dev_cpp=1
+rmmod nfp
+rmmod tls
+```
+```
+zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_dev_cpp
+1
+```
