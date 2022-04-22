@@ -66,7 +66,7 @@ If Kernel patch is needed, refer to this article [[Link]](https://help.netronome
 
 One of the ways to access the SmartNIC is using the nfp_dev_cpp. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
 
-Download the nfp-drv-kmods repository from here [[Link]](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
+Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
 
 ```
 - make
