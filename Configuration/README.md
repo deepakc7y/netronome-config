@@ -209,3 +209,17 @@ Follow the [basic firmware guide](https://help.netronome.com/support/solutions/a
 #### Installing SRIOV Capable Firmware
 
 One of the strengths of a SmartNIC is its ability to create VFs. After enabling SRIOV from BIOS, we must install SRIOV capable firmware onto the SmartNIC. 
+
+```
+zenlab@zenlab690:~$ ethtool -i enp3s0np0np0 | head -3
+driver: nfp
+version: no-src-ver (o-o-t)
+firmware-version: 0.0.3.5 0.25 nic-2.1.16 nic
+```
+
+From the above output, we can see that the current firmware being used is the one without SRIOV functionality and with basic NIC functionality.
+2.1.16 denotes the version of the firmware.
+
+Download the SRIOV capable firmware from this [link](https://help.netronome.com/support/solutions/articles/36000052070-agilio-smartnic-basic-firmware-v-2-1-16-1) and install it using the following steps.
+
+(Note: Ensure that you download the basic firmware **with SRIOV Support**)
