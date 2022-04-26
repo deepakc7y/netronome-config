@@ -223,3 +223,52 @@ From the above output, we can see that the current firmware being used is the on
 Download the SRIOV capable firmware from this [link](https://help.netronome.com/support/solutions/articles/36000052070-agilio-smartnic-basic-firmware-v-2-1-16-1) and install it using the following steps.
 
 (Note: Ensure that you download the basic firmware **with SRIOV Support**)
+
+```
+zenlab@zenlab690:~$ sudo dpkg -i agilio-sriov-firmware-2.1.16.1-1.deb
+Selecting previously unselected package agilio-sriov-firmware.
+(Reading database ... 174507 files and directories currently installed.)
+Preparing to unpack agilio-sriov-firmware-2.1.16.1-1.deb ...
+Unpacking agilio-sriov-firmware (2.1.16.1-1) ...
+Setting up agilio-sriov-firmware (2.1.16.1-1) ...
+update-initramfs: Generating /boot/initrd.img-5.4.0-107-generic
+W: Possible missing firmware /lib/firmware/rtl_nic/rtl8125a-3.fw for module r8169
+W: Possible missing firmware /lib/firmware/rtl_nic/rtl8168fp-3.fw for module r8169
+update-initramfs: Generating /boot/initrd.img-5.3.0-28-generic
+```
+```
+zenlab@zenlab690:~$ ls -og --time-style="+" /lib/firmware/netronome
+total 56
+drwxr-xr-x 2 4096  flower
+drwxr-xr-x 2 4096  nic
+lrwxrwxrwx 1   64  nic_AMDA0058-0011_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0058-0011_2x40.nffw
+lrwxrwxrwx 1   64  nic_AMDA0058-0012_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0058-0012_2x40.nffw
+lrwxrwxrwx 1   65  nic_AMDA0078-0011_1x100.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0078-0011_1x100.nffw
+lrwxrwxrwx 1   64  nic_AMDA0081-0001_1x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0081-0001_1x40.nffw
+lrwxrwxrwx 1   64  nic_AMDA0081-0001_4x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0081-0001_4x10.nffw
+lrwxrwxrwx 1   64  nic_AMDA0096-0001_2x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0096-0001_2x10.nffw
+lrwxrwxrwx 1   64  nic_AMDA0097-0001_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_2x40.nffw
+lrwxrwxrwx 1   69  nic_AMDA0097-0001_4x10_1x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_4x10_1x40.nffw
+lrwxrwxrwx 1   64  nic_AMDA0097-0001_8x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_8x10.nffw
+lrwxrwxrwx 1   69  nic_AMDA0099-0001_1x10_1x25.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_1x10_1x25.nffw
+lrwxrwxrwx 1   64  nic_AMDA0099-0001_2x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_2x10.nffw
+lrwxrwxrwx 1   64  nic_AMDA0099-0001_2x25.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_2x25.nffw
+```
+
+Next, remove the NFP Driver and then reload it again. This will ensure that the firmware with SRIOV Support is installed onto the SmartNIC.
+
+```
+zenlab@zenlab690:~$ sudo modprobe -r nfp
+zenlab@zenlab690:~$ sudo modprobe nfp
+```
+
+We can confirm the SRIOV capable firmware using the following command:
+
+```
+zenlab@zenlab690:~$ ethtool -i enp3s0np0np0 | head -3
+driver: nfp
+version: no-src-ver (o-o-t)
+firmware-version: 0.0.3.5 0.25 sriov-2.1.16.1 nic
+```
+
+The firmware has been successfully changed from nic-2.1.16 to sriov-2.1.16.1
