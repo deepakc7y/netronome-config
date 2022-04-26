@@ -199,3 +199,13 @@ rmmod tls
 zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_dev_cpp
 1
 ```
+
+### Follow the official Basic Firmware Guide 
+
+Follow the [basic firmware guide](https://help.netronome.com/support/solutions/articles/36000049975-basic-firmware-user-guide) and configure the smartNIC as per your requirements.
+
+### Creating Virtual Functions (VFs)
+
+#### Installing SRIOV Capable Firmware
+
+One of the strengths of a SmartNIC is its ability to create VFs. After enabling SRIOV from BIOS, we must install SRIOV capable firmware onto the SmartNIC. 
