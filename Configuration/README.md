@@ -1,17 +1,17 @@
 # Netronome SmartNIC Configuration
 
 ## Index
-* Host System Details
-* SmartNIC Details
-* Enabling the SRIOV Support in the boot menu
-* Ensure that the Netronome Card appears as one of the Ethernet Controllers
-* Ensure that ERR47 Kernel Patch is already done
-* Enable ```nfp_dev_cpp```
-* Follow the official Basic Firmware Guide
-* Creating Virtual Functions (VFs)
-    - Installing SRIOV Capable Firmware
-    - Configuring the SRIOV and creating two virtual functions
-* Installing the Command line RTE (Run-Time Environment)
+* [Host System Details](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#system-details)
+* [SmartNIC Details](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#smartnic-details)
+* [Enabling the SRIOV Support in the boot menu](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#enabling-the-sriov-support-in-the-boot-menu)
+* [Ensure that the Netronome Card appears as one of the Ethernet Controllers](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#ensure-that-the-netronome-card-appears-as-one-of-the-ethernet-controllers)
+* [Ensure that ERR47 Kernel Patch is already done](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#ensure-that-err47-kernel-patch-is-already-done)
+* [Enable ```nfp_dev_cpp```](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#enable-nfp_dev_cpp)
+* [Follow the official Basic Firmware Guide](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#follow-the-official-basic-firmware-guide)
+* [Creating Virtual Functions (VFs)](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#creating-virtual-functions-vfs)
+    - [Installing SRIOV Capable Firmware](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#installing-sriov-capable-firmware)
+    - [Configuring the SRIOV and creating two virtual functions](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#configuring-the-sriov-and-creating-two-virtual-functions)
+* [Installing the Command line RTE (Run-Time Environment)](https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/Configuration/README.md#installing-the-command-line-rte-run-time-environment)
 
 ## Initial Configuration
 
