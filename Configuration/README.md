@@ -272,3 +272,37 @@ firmware-version: 0.0.3.5 0.25 sriov-2.1.16.1 nic
 ```
 
 The firmware has been successfully changed from nic-2.1.16 to sriov-2.1.16.1
+
+#### Configuring the SRIOV and creating two virtual functions
+
+Till this point we have ensured that we have all the necessary firmwares and repositories to create virtual functions, but we haven't created any. There are currently zero VFs on our SmartNIC. This can be checked using the following command
+
+```
+zenlab@zenlab690:~$ cat  /sys/class/net/enp3s0np0np0/device/sriov_numvfs
+0
+```
+
+The total number of supported VFs on your smartNIC can be checked using the following command
+
+```
+zenlab@zenlab690:~$ cat /sys/class/net/enp3s0np0np0/device/sriov_totalvfs
+48
+```
+
+The command "lspci -d19ee: -k" now returns only one result because have one Physical Function (PF) and zero VFs.
+
+```
+root@zenlab690:~# lspci -d19ee: -k
+03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
+	Subsystem: Netronome Systems, Inc. Device 4000
+	Kernel driver in use: nfp
+	Kernel modules: nfp
+```
+
+Although we can create up to 48 VFs in this SmartNIC, we will be creating two VFs as an example.
+
+```
+root@zenlab690:~# echo 2 > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
+```
+
+enp3s0np0np0 is the interface of the SmartNIC's PF.
