@@ -1,5 +1,20 @@
 # Netronome SmartNIC Configuration
 
+## Index
+* Host System Details
+* SmartNIC Details
+* Enabling the SRIOV Support in the boot menu
+* Ensure that the Netronome Card appears as one of the Ethernet Controllers
+* Ensure that ERR47 Kernel Patch is already done
+* Enable ```nfp_dev_cpp```
+* Follow the official Basic Firmware Guide
+* Creating Virtual Functions (VFs)
+    - Installing SRIOV Capable Firmware
+    - Configuring the SRIOV and creating two virtual functions
+* Installing the Command line RTE (Run-Time Environment)
+
+## Initial Configuration
+
 ### System Details:
 - Motherboard - Asus Prime Z690 P D4 [[Link]](https://www.asus.com/in/Motherboards-Components/Motherboards/PRIME/PRIME-Z690-P-D4/)
 - Processor - 12th Gen Intel® Core™ i5-12400 × 12
@@ -9,8 +24,6 @@
 
 ### SmartNIC Details:
 - Netronome Agilio SmartNIC CX 2x10GbE [[Link]](https://www.netronome.com/products/agilio-cx/)
-
-## Initial Configuration
 
 ### Enabling the SRIOV Support in the boot menu
 
