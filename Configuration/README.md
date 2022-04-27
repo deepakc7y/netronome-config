@@ -307,6 +307,30 @@ root@zenlab690:~# echo 2 > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
 
 enp3s0np0np0 is the interface of the SmartNIC's PF.
 
+We get to see the two VFs after the executing above command
+
+```
+root@zenlab690:~# cat /sys/class/net/enp3s0np0np0/device/sriov_numvfs
+2
+```
+```
+root@zenlab690:~# lspci -d19ee: -k
+03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
+	Subsystem: Netronome Systems, Inc. Device 4000
+	Kernel driver in use: nfp
+	Kernel modules: nfp
+03:08.0 Ethernet controller: Netronome Systems, Inc. Device 6003
+	Subsystem: Netronome Systems, Inc. Device 4000
+	Kernel driver in use: nfp_netvf
+	Kernel modules: nfp
+03:08.1 Ethernet controller: Netronome Systems, Inc. Device 6003
+	Subsystem: Netronome Systems, Inc. Device 4000
+	Kernel driver in use: nfp_netvf
+	Kernel modules: nfp
+```
+
+03:08.0 and 03:08.1 are the PCI addresses of our two VFs and you can also see that they use "nfp_netvf" driver instead of "nfp" driver used by the PF.
+
 ----------------
 **Note**: You can find the interface of your SmartNIC's PF using "ifconfig -a" or "ip a" after completing step 5.
 
@@ -348,3 +372,160 @@ wlx687f746839ba: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 --------------
+
+### Installing the Command line RTE (Run-Time Environment)
+
+Download the NFP SDK Packages from the official website. You should get the access to all the SDK related files once you have registered the Netronome Card.
+
+Run the following commands:
+
+```
+Install the necessary packages
+apt-get install libftdi1 libjansson4 build-essential \
+ linux-headers-`uname -r` dkms git
+```
+```
+sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb creates the /opt/netronome directory
+```
+```
+Add to the path where the binaries will be installed
+cat >> ~/.bash_profile << 'EOF'
+
+# Netronome SDK
+PATH=$PATH:/opt/netronome/bin
+export PATH
+EOF
+source ~/.bash_profile
+```
+```
+Add the Netronome Public Key and Update
+wget https://deb.netronome.com/gpg/NetronomePublic.key
+apt-key add NetronomePublic.key
+add-apt-repository "deb https://deb.netronome.com/apt stable main"
+apt-get update
+```
+
+and then **reboot** the system.
+
+Also ensure that nfp_dev_cpp = 1. If you encounter an error, remove and reload the 'nfp' module using the following command
+
+```
+sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
+```
+
+If you encounter an error even after reloading the module, then repeat step 4 again.
+
+Ensure that nfp-hwinfo is talking to the card using the following command. Ensure that the output is similar to the one below.
+
+```
+sudo /opt/netronome/bin/nfp-hwinfo
+
+zenlab@zenlab690:~$ sudo /opt/netronome/bin/nfp-hwinfo
+nfp.interface=pci.0.0
+nfp.model=0x62000010
+nfp.serial=00:15:4d:13:5c:5c
+assembly.revision=11
+assembly.model=lithium
+assembly.partno=AMDA0096-0001
+assembly.serial=17290565
+assembly.vendor=SMC
+ddr0.spd=spi:1:0:0x3F0F00
+ddr1.spd=spi:1:0:0x3F0F00
+ddr2.spd=none
+ddr3.spd=none
+ddr4.spd=none
+ddr5.spd=none
+emu1.type=cache
+emu2.type=cache
+ethm.mac=00:15:4d:13:5c:5c
+eth.mac=00:15:4d:13:5c:5d
+eth.macs=2
+pcie0.type=ep
+chip.model=NFP4001
+chip.revision=B0
+chip.model.device=0x62006020
+chip.identifier=0xd78f8d460
+chip.model.hard=0x5
+chip.model.soft=0x40010096
+chip.route=0x26843312
+chip.island=0x1001f13000112
+core.speed=633
+me.speed=633
+arm.speed=475
+nfp-boot.version= ()
+bsp.version.primary=01011b
+bsp.version.secondary=01011b
+flash.data.bus=1
+ddr0.mem.size=1024
+ddr1.mem.size=1024
+ddr0.mem.speed=1600
+ddr1.mem.speed=1600
+emu0.mem.size=2048
+emu0.mem.base=0x2000000000
+emu1.mem.size=3
+emu1.mem.base=0x9900000000
+emu2.mem.size=0
+emu2.mem.base=0x0
+arm.mem.size=96
+arm.mem.base=0x207a000000
+cpld.location=spi:2:2:4
+pmon.limit=25.0
+pmon.12v=cpld:7:I:32_0:0.00249:0
+pmon.3v3=static:0.54
+phy0.label=0
+phy0.nbi=0
+phy0.port=0
+phy0.lanes=1
+phy0.sff=8431
+phy0.pin.link=-cpld:2:2:0xd.0
+phy0.pin.activity=-cpld:2:2:0xd.3
+phy0.SFF-8431=ee1:0:0x50:0x0
+phy0.SFF-8472=ee1:0:0x51:0x0
+phy0.pin.present=-cpld:2:2:0x9.5
+phy0.pin.rate_select_0=cpld:2:2:0x9.2
+phy0.pin.rate_select_1=cpld:2:2:0x9.1
+phy0.pin.tx_disable=cpld:2:2:0x9.4
+phy0.pin.tx_fault=cpld:2:2:0x9.12
+phy0.pin.rx_los=cpld:2:2:0x9.0
+phy0.type=SFP+
+phy0.media=X
+eth0.media=X
+eth0.label=0.0
+eth0.phy=0
+eth0.lane=0
+eth0.lanes=1
+eth0.boot=1
+phy1.label=1
+phy1.nbi=0
+phy1.port=4
+phy1.lanes=1
+phy1.sff=8431
+phy1.pin.link=-cpld:2:2:0xd.4
+phy1.pin.activity=-cpld:2:2:0xd.7
+phy1.SFF-8431=ee1:1:0x50:0x0
+phy1.SFF-8472=ee1:1:0x51:0x0
+phy1.pin.present=-cpld:2:2:0x9.11
+phy1.pin.rate_select_0=cpld:2:2:0x9.8
+phy1.pin.rate_select_1=cpld:2:2:0x9.7
+phy1.pin.tx_disable=cpld:2:2:0x9.10
+phy1.pin.tx_fault=cpld:2:2:0x9.13
+phy1.pin.rx_los=cpld:2:2:0x9.6
+phy1.type=SFP+
+phy1.media=X
+eth4.media=X
+eth4.label=1.0
+eth4.phy=1
+eth4.lane=0
+eth4.lanes=1
+eth4.boot=1
+phy0.ledblink=cpld:2:2:0xd.10
+phy1.ledblink=cpld:2:2:0xd.12
+cpld.version=0x1030000
+eth0.mac=00:15:4d:13:5c:5d
+eth4.mac=00:15:4d:13:5c:5e
+board.state=15
+bootloader.version=default (e3136d5f74c39ed9b039cfccfb53a30b86d60cbb)
+bsp.version=01011b.01011b.0100ff
+```
+
+Proceed further only if nfp_dev_cpp = 1 and nfp-hwinfo gives the expected output.
