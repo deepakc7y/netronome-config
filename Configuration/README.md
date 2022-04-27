@@ -306,3 +306,45 @@ root@zenlab690:~# echo 2 > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
 ```
 
 enp3s0np0np0 is the interface of the SmartNIC's PF.
+
+----------------
+**Note**: You can find the interface of your SmartNIC's PF using "ifconfig -a" or "ip a" after completing step 5.
+
+```
+zenlab@zenlab690:~$ ifconfig -a
+enp3s0np0np0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 00:15:4d:13:5c:5d  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+enp3s0np1np1: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 00:15:4d:13:5c:5e  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 781  bytes 78699 (78.6 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 781  bytes 78699 (78.6 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlx687f746839ba: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.163  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::f231:3afd:644a:d376  prefixlen 64  scopeid 0x20<link>
+        inet6 fd77:2b3d:8de7:0:99c6:d3f7:5a5a:790  prefixlen 64  scopeid 0x0<global>
+        inet6 fd77:2b3d:8de7::b1c  prefixlen 128  scopeid 0x0<global>
+        inet6 fd77:2b3d:8de7:0:580f:542e:40c6:66ec  prefixlen 64  scopeid 0x0<global>
+        ether 68:7f:74:68:39:ba  txqueuelen 1000  (Ethernet)
+        RX packets 2197  bytes 1942238 (1.9 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2169  bytes 272453 (272.4 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+```
+--------------
