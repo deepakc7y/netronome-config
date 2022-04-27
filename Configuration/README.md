@@ -75,7 +75,7 @@ Kernel is good
 
 If Kernel patch is needed, refer to [this article](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
 
-### Enable nfp_dev_cpp
+### Enable ```nfp_dev_cpp```
 
 One of the ways to access the SmartNIC is using the ```nfp_dev_cpp```. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
 
