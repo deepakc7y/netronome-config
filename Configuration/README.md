@@ -385,7 +385,7 @@ apt-get install libftdi1 libjansson4 build-essential \
  linux-headers-`uname -r` dkms git
 ```
 ```
-sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb creates the /opt/netronome directory
+sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb - creates the /opt/netronome directory
 ```
 ```
 Add to the path where the binaries will be installed
@@ -407,7 +407,7 @@ apt-get update
 
 and then **reboot** the system.
 
-Also ensure that nfp_dev_cpp = 1. If you encounter an error, remove and reload the 'nfp' module using the following command
+Also ensure that ```nfp_dev_cpp = 1```. If you encounter an error, remove and reload the 'nfp' module using the following command
 
 ```
 sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
