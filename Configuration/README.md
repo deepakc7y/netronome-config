@@ -29,7 +29,7 @@
 
 SR-IOV is a PCI feature that allows virtual functions (VFs) to be created from a physical function (PF). The VFs thus share the resources of a PF, while VFs remain isolated from each other. The isolated VFs are typically assigned to virtual machines (VMs) on the host. In this way, the VFs allow the VMs to directly access the PCI device, thereby bypassing the host kernel. [[Source]](https://help.netronome.com/support/solutions/articles/36000049975-basic-firmware-user-guide#using-sr-iov)
 
-By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), you have to enable the SRIOV Support. In the Asus Motherboard, the 'SRIOV Support' option can be found under 'PCI Subsystem Settings' and can be enabled.
+By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), you have to enable the SRIOV Support. In the Asus Motherboard, the "SRIOV Support" option can be found under **PCI Subsystem Settings** and can be enabled.
 
 <img src="https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/images/SRIOV-BIOS-Asus.png">
 
@@ -39,16 +39,16 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 
 It can be done using the following commands
 
-```
-lspci -vvv -d 19ee: to confirm PCIe configuration of SmartNIC(s)
+```lspci -vvv -d 19ee:``` to confirm PCIe configuration of SmartNIC(s)
 
+```
 zenlab@zenlab690:~$ sudo lspci -d19ee:
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
 ``` 
 
-```
-dmesg | grep nfp to check for system-generated messages the SmartNIC
+```dmesg | grep nfp``` to check for system-generated messages the SmartNIC
 
+```
 zenlab@zenlab690:~$ dmesg | grep nfp
 [    1.011845] nfp: NFP PCIe Driver, Copyright (C) 2014-2017 Netronome Systems
 [    1.011947] nfp 0000:03:00.0: Netronome Flow Processor NFP4000/NFP5000/NFP6000 PCIe Card Probe
@@ -77,7 +77,7 @@ If Kernel patch is needed, refer to [this article](https://help.netronome.com/su
 
 ### Enable nfp_dev_cpp
 
-One of the ways to access the SmartNIC is using the nfp_dev_cpp. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
+One of the ways to access the SmartNIC is using the ```nfp_dev_cpp```. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
 
 Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
 
@@ -284,7 +284,7 @@ version: no-src-ver (o-o-t)
 firmware-version: 0.0.3.5 0.25 sriov-2.1.16.1 nic
 ```
 
-The firmware has been successfully changed from nic-2.1.16 to sriov-2.1.16.1
+The firmware has been successfully changed from ```nic-2.1.16``` to ```sriov-2.1.16.1```
 
 #### Configuring the SRIOV and creating two virtual functions
 
@@ -302,7 +302,7 @@ zenlab@zenlab690:~$ cat /sys/class/net/enp3s0np0np0/device/sriov_totalvfs
 48
 ```
 
-The command "lspci -d19ee: -k" now returns only one result because have one Physical Function (PF) and zero VFs.
+The command ```lspci -d19ee: -k``` now returns only one result because have one Physical Function (PF) and zero VFs.
 
 ```
 root@zenlab690:~# lspci -d19ee: -k
@@ -318,7 +318,7 @@ Although we can create up to 48 VFs in this SmartNIC, we will be creating two VF
 root@zenlab690:~# echo 2 > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
 ```
 
-enp3s0np0np0 is the interface of the SmartNIC's PF.
+```enp3s0np0np0``` is the interface of the SmartNIC's PF.
 
 We get to see the two VFs after the executing above command
 
@@ -342,10 +342,9 @@ root@zenlab690:~# lspci -d19ee: -k
 	Kernel modules: nfp
 ```
 
-03:08.0 and 03:08.1 are the PCI addresses of our two VFs and you can also see that they use "nfp_netvf" driver instead of "nfp" driver used by the PF.
+```03:08.0``` and ```03:08.1``` are the PCI addresses of our two VFs and you can also see that they use ```nfp_netvf``` driver instead of ```nfp``` driver used by the PF.
 
-----------------
-**Note**: You can find the interface of your SmartNIC's PF using "ifconfig -a" or "ip a" after completing step 5.
+**Note**: You can find the interface of your SmartNIC's PF using ```ifconfig -a``` or ```ip a``` after completing step 5.
 
 ```
 zenlab@zenlab690:~$ ifconfig -a
@@ -384,7 +383,6 @@ wlx687f746839ba: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX packets 2169  bytes 272453 (272.4 KB)
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
---------------
 
 ### Installing the Command line RTE (Run-Time Environment)
 
@@ -397,9 +395,8 @@ Install the necessary packages
 apt-get install libftdi1 libjansson4 build-essential \
  linux-headers-`uname -r` dkms git
 ```
-```
-sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb - creates the /opt/netronome directory
-```
+```sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb``` creates the /opt/netronome directory
+
 ```
 Add to the path where the binaries will be installed
 cat >> ~/.bash_profile << 'EOF'
@@ -420,7 +417,7 @@ apt-get update
 
 and then **reboot** the system.
 
-Also ensure that ```nfp_dev_cpp = 1```. If you encounter an error, remove and reload the 'nfp' module using the following command
+Also ensure that ```nfp_dev_cpp = 1```. If you encounter an error, remove and reload the ```nfp``` module using the following command
 
 ```
 sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
@@ -428,7 +425,7 @@ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
 
 If you encounter an error even after reloading the module, then repeat step 4 again.
 
-Ensure that nfp-hwinfo is talking to the card using the following command. Ensure that the output is similar to the one below.
+Ensure that ```nfp-hwinfo``` is talking to the card using the following command. Ensure that the output is similar to the one below.
 
 ```
 sudo /opt/netronome/bin/nfp-hwinfo
@@ -541,4 +538,4 @@ bootloader.version=default (e3136d5f74c39ed9b039cfccfb53a30b86d60cbb)
 bsp.version=01011b.01011b.0100ff
 ```
 
-Proceed further only if nfp_dev_cpp = 1 and nfp-hwinfo gives the expected output.
+Proceed further only if ```nfp_dev_cpp = 1``` and ```nfp-hwinfo``` gives the expected output.
