@@ -6,7 +6,7 @@ This README file is structured as following:
 - Setting up Windows and Linux Development Workflow
 - Running a P4 Program on Netronome SmartNIC
 
-### To change the link speed of Netronome ports from 10G to 1G
+### To change the link speed of Netronome ports from 10G to 1G [Reference](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
 
 ```
 zenlab@tsn1:~$ sudo /opt/netronome/bin/nfp-media
@@ -23,4 +23,3 @@ root@tsn1:~# sudo /opt/netronome/bin/nfp-media
 phy0=1G (1G)
 phy1=1G (1G)
 ```
-[Reference](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
