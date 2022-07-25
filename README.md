@@ -23,3 +23,11 @@ root@tsn1:~# sudo /opt/netronome/bin/nfp-media
 phy0=1G (1G)
 phy1=1G (1G)
 ```
+
+### To change the number of default Virtual Functions (VFs) created when you load a P4 program to the SmartNIC
+
+By default, 4 VFs are initialized.
+
+- Go to the directory /lib/systemd/service/nfp-sdk6-rte.service
+- The environment variable named ```Environment=NUM_VFS=4``` allows changing the default number of VFs.
+- Reboot the host system.
