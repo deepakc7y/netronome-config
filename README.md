@@ -24,7 +24,7 @@ phy0=1G (1G)
 phy1=1G (1G)
 ```
 
-### To change the number of default Virtual Functions (VFs) created when you load a P4 program to the SmartNIC
+### To change the number of default VFs created when you load a P4/MicroC program to the SmartNIC
 
 By default, 4 VFs are initialized.
 
