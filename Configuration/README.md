@@ -560,7 +560,7 @@ According to Netronome support, kernel version 4.15 is the only tested version f
 
 ```
 - apt update
-- acquire the kernel version packages from [here](https://kernel.ubuntu.com/~kernel-ppa/mainline/).
+- acquire the kernel version packages
 - install the kernel version packages
 - sudo nano /etc/default/grub
 - 
