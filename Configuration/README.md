@@ -544,7 +544,7 @@ Proceed further only if ```nfp_dev_cpp = 1``` and ```nfp-hwinfo``` gives the exp
 
 ### Installing the ethernet driver
 
-The ASUS Motherboard used as the host system for the Netronome SmartNIC has ethernet driver issues with Ubuntu 18.04. The following steps resolve the issue and allows the usage of LAN port.
+The ASUS Motherboard used in the host system for the Netronome SmartNIC has ethernet driver issues with Ubuntu 18.04. The following steps resolve the issue and allows the usage of LAN port.
 
 ```
 - apt update
