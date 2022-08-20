@@ -569,4 +569,4 @@ According to Netronome support, kernel version 4.15 is the only tested version f
 - reboot
 - select the kernel version from the GRUB menu under 'Advanced options for Ubuntu'
 ```
-Additional Resources that I found helpful - [1](https://support.huaweicloud.com/intl/en-us/trouble-ecs/ecs_trouble_0327.html), [2](https://techadminblog.com/boot-previous-kernel-version-ubuntu-16-04/), [3](https://youtu.be/Oobfg8srQwU).
+You can acquire the required kernel version from [here](https://kernel.ubuntu.com/~kernel-ppa/mainline/). Additional Resources that I found helpful - [1](https://support.huaweicloud.com/intl/en-us/trouble-ecs/ecs_trouble_0327.html), [2](https://techadminblog.com/boot-previous-kernel-version-ubuntu-16-04/), [3](https://youtu.be/Oobfg8srQwU).
