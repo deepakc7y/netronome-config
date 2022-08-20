@@ -547,9 +547,26 @@ Proceed further only if ```nfp_dev_cpp = 1``` and ```nfp-hwinfo``` gives the exp
 The ASUS Motherboard used as the host system for the Netronome SmartNIC has ethernet driver issues with Ubuntu 18.04. The following steps resolve the issue and allows the usage of LAN port.
 
 ```
-- apt get update
+- apt update
 - apt install make make-guile gcc
 - cd Downloads/r8125-9.007.01/
 - chmod +x autorun.sh
 - ./autorun.sh
 ```
+
+### Changing the Linux Kernel Version
+
+According to Netronome support, kernel version 4.15 is the only tested version for Ubuntu 18.04 [(source)](https://help.netronome.com/support/solutions/articles/36000184708-tested-linux-versions). The following steps details the process of changing the kernel version 
+
+```
+- apt update
+- acquire the kernel version packages from [here](https://kernel.ubuntu.com/~kernel-ppa/mainline/).
+- install the kernel version packages
+- sudo nano /etc/default/grub
+- 
+-
+- update-grub2
+- reboot
+- select the kernel version from the GRUB menu under 'Advanced options for Ubuntu'
+```
+Additional Resources that I found helpful - [1](https://support.huaweicloud.com/intl/en-us/trouble-ecs/ecs_trouble_0327.html), [2](https://techadminblog.com/boot-previous-kernel-version-ubuntu-16-04/), [3](https://youtu.be/Oobfg8srQwU).
