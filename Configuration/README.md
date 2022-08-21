@@ -563,8 +563,8 @@ According to Netronome support, kernel version 4.15 is the only tested version f
 - acquire the kernel version packages
 - install the kernel version packages
 - sudo nano /etc/default/grub
-- 
--
+- GRUB_TIMELINE parameter
+- GRUB_TIMELINE parameter
 - update-grub2
 - reboot
 - select the kernel version from the GRUB menu under 'Advanced options for Ubuntu'
