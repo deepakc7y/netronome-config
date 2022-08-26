@@ -31,3 +31,9 @@ By default, 4 VFs are initialized.
 - Go to the directory /lib/systemd/service/nfp-sdk6-rte.service
 - The environment variable named ```Environment=NUM_VFS=4``` allows changing the default number of VFs.
 - Reboot the host system.
+
+### Netronome Help
+
+In the event that you are stuck with a problem, here's how I recommend you approach the problem:
+
+- The Netronome Team provides you with a bunch of documents in a zipped folder called as SDK Docs. Make sure that this folder is the first thing that comes to your mind and read them thoroughly. I'll often happen that when you read the document for the first time, you would not find a solution and a few weeks later when you are going through it, you end up finding solutions.
