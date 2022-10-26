@@ -540,6 +540,10 @@ bsp.version=01011b.01011b.0100ff
 
 Proceed further only if ```nfp_dev_cpp = 1``` and ```nfp-hwinfo``` gives the expected output.
 
+### To see the Netronome SmartNIC Physical Interfaces
+
+```sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=1``` 
+
 ## Host System Setup
 
 ### Installing the ethernet driver
