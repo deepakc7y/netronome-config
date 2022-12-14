@@ -1,17 +1,17 @@
 # Netronome SmartNIC Configuration
 
 ## Index
-* [Host System Details](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#system-details)
-* [SmartNIC Details](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#smartnic-details)
-* [Enabling the SRIOV Support in the boot menu](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#enabling-the-sriov-support-in-the-boot-menu)
-* [Ensure that the Netronome Card appears as one of the Ethernet Controllers](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#ensure-that-the-netronome-card-appears-as-one-of-the-ethernet-controllers)
-* [Ensure that ERR47 Kernel Patch is already done](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#ensure-that-err47-kernel-patch-is-already-done)
-* [Enable ```nfp_dev_cpp```](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#enable-nfp_dev_cpp)
-* [Follow the official Basic Firmware Guide](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#follow-the-official-basic-firmware-guide)
-* [Creating Virtual Functions (VFs)](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#creating-virtual-functions-vfs)
-    - [Installing SRIOV Capable Firmware](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#installing-sriov-capable-firmware)
-    - [Configuring the SRIOV and creating two virtual functions](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#configuring-the-sriov-and-creating-two-virtual-functions)
-* [Installing the Command line RTE (Run-Time Environment)](https://github.com/deepakc7y/netronome-config/blob/main/Configuration/README.md#installing-the-command-line-rte-run-time-environment)
+* [Host System Details](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#system-details)
+* [SmartNIC Details](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#smartnic-details)
+* [Enabling the SRIOV Support in the boot menu](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#enabling-the-sriov-support-in-the-boot-menu)
+* [Ensure that the Netronome Card appears as one of the Ethernet Controllers](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#ensure-that-the-netronome-card-appears-as-one-of-the-ethernet-controllers)
+* [Ensure that ERR47 Kernel Patch is already done](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#ensure-that-err47-kernel-patch-is-already-done)
+* [Enable ```nfp_dev_cpp```](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#enable-nfp_dev_cpp)
+* [Follow the official Basic Firmware Guide](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#follow-the-official-basic-firmware-guide)
+* [Creating Virtual Functions (VFs)](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#creating-virtual-functions-vfs)
+    - [Installing SRIOV Capable Firmware](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#installing-sriov-capable-firmware)
+    - [Configuring the SRIOV and creating two virtual functions](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#configuring-the-sriov-and-creating-two-virtual-functions)
+* [Installing the Command line RTE (Run-Time Environment)](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#installing-the-command-line-rte-run-time-environment)
 
 ## Initial Configuration
 
@@ -31,7 +31,7 @@ SR-IOV is a PCI feature that allows virtual functions (VFs) to be created from a
 
 By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), you have to enable the SRIOV Support. In the Asus Motherboard, the "SRIOV Support" option can be found under **PCI Subsystem Settings** and can be enabled.
 
-<img src="https://github.com/deepakc7y/Netronome-SmartNIC-Projects/blob/main/images/SRIOV-BIOS-Asus.png">
+<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/SRIOV-BIOS-Asus.png">
 
 [[Image Source]](https://dlcdnets.asus.com/pub/ASUS/mb/13MANUAL/PRIME_PROART_TUF_GAMING_Intel_600_Series_BIOS_EM_WEB_EN.pdf)
 
