@@ -548,6 +548,7 @@ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=1
 
 ## Host System Setup
 
+
 ### Installing the ethernet driver
 
 The ASUS Motherboard used in the host system for the Netronome SmartNIC has ethernet driver issues with Ubuntu 18.04. The following steps resolve the issue and allows the usage of LAN port.
@@ -576,3 +577,54 @@ According to Netronome support, kernel version 4.15 is the only tested version f
 - select the kernel version from the GRUB menu under 'Advanced options for Ubuntu'
 ```
 You can acquire the required kernel version from [here](https://kernel.ubuntu.com/~kernel-ppa/mainline/). Additional Resources that I found helpful - [1](https://support.huaweicloud.com/intl/en-us/trouble-ecs/ecs_trouble_0327.html), [2](https://techadminblog.com/boot-previous-kernel-version-ubuntu-16-04/), [3](https://youtu.be/Oobfg8srQwU).
+
+## Netronome Configurations
+
+### To enable NFP ports for 1G RJ45 connections
+Plug the SFP to RJ45 media converters by Cisco (Model details: ) to the physical ports of the Netronome smartNIC and run the following commands
+
+```
+zenlab@tsn1:~$ sudo /opt/netronome/bin/nfp-media
+phy0=10G (unset)
+phy1=10G (unset)
+```
+
+```
+zenlab@tsn1:~$ sudo /opt/netronome/bin/nfp-phymod 
+phy0: NBI0.0(1)	"0" SFP+ conn:LC Unknown (0x00)
+ "OEM" "SFP-1.25G-T" "21051745012"  oui:0x0 type:0xa len:550m active:1 cc:0
+	TX Fault: FAULT(0x1,0x0)
+	RX Fault: LOS(0x0,0x1)
+  eth0: NBI0.0(1)	"0.0" 00:15:4d:13:5c:5d 10G Down Bootable
+	Link Fault: RX_BASE RX_BLOCK
+phy1: NBI0.4(1)	"1" SFP+ conn:LC Unknown (0x00)
+ "OEM" "SFP-1.25G-T" "21051745013"  oui:0x0 type:0xa len:550m active:1 cc:0
+	TX Fault: FAULT(0x1,0x0)
+	RX Fault: LOS(0x0,0x1)
+  eth4: NBI0.4(1)	"1.0" 00:15:4d:13:5c:5e 10G Down Bootable
+	Link Fault: RX_BASE RX_BLOCK
+
+```
+
+```
+zenlab@tsn1:~$ sudo bash
+root@tsn1:~# sudo chmod a+x /opt/netronome/bin/nfp-media 
+root@tsn1:~# cat /sys/module/nfp/parameters/nfp_dev_cpp
+1
+```
+
+```
+root@tsn1:~# sudo /opt/netronome/bin/nfp-media -n0 phy0=1G phy1=1G
+ eth0: "0.0" 00:15:4d:13:5c:5d
+ eth4: "1.0" 00:15:4d:13:5c:5e
+```
+
+```
+root@tsn1:~# sudo /opt/netronome/bin/nfp-media 
+phy0=1G (1G)
+phy1=1G (1G)
+```
+
+Additional Reference - [Low cost 10G optical to 1G copper media converter - open nfp groups](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
+
+

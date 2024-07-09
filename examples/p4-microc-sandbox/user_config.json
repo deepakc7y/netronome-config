@@ -1,0 +1,38 @@
+{
+    "tables": {
+        "ingress::ipv4_lpm": {
+            "rules": [
+                {
+                    "name": "p0 to p1",
+                    "match": {"standard_metadata.ingress_port": {"value": "p0"}},
+                    "action": {
+                        "data": {
+                            "dstAddr": {
+                                "value": "00:1b:21:c2:54:42"
+                            },
+                            "port": {
+                                "value": "p1"
+                            }
+                        }, 
+                        "type": "ingress::ipv4_forward"
+                    }
+                }, 
+                {
+                    "name": "p1 to p0",
+                    "match": {"standard_metadata.ingress_port": {"value": "p1"}},
+                    "action": {
+                        "data": {
+                            "dstAddr": {
+                                "value": "00:1b:21:c2:54:40"
+                            },
+                            "port": {
+                                "value": "p0"
+                            }
+                        }, 
+                        "type": "ingress::ipv4_forward"
+                    }
+                }
+            ]
+        }
+    }
+}
