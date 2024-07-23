@@ -1,19 +1,26 @@
 # Netronome SmartNIC Configuration
 
 ## Index
-* [Host System Details](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#system-details)
-* [SmartNIC Details](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#smartnic-details)
-* [Enabling the SRIOV Support in the boot menu](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#enabling-the-sriov-support-in-the-boot-menu)
-* [Ensure that the Netronome Card appears as one of the Ethernet Controllers](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#ensure-that-the-netronome-card-appears-as-one-of-the-ethernet-controllers)
-* [Ensure that ERR47 Kernel Patch is already done](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#ensure-that-err47-kernel-patch-is-already-done)
-* [Enable ```nfp_dev_cpp```](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#enable-nfp_dev_cpp)
-* [Follow the official Basic Firmware Guide](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#follow-the-official-basic-firmware-guide)
-* [Creating Virtual Functions (VFs)](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#creating-virtual-functions-vfs)
-    - [Installing SRIOV Capable Firmware](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#installing-sriov-capable-firmware)
-    - [Configuring the SRIOV and creating two virtual functions](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#configuring-the-sriov-and-creating-two-virtual-functions)
-* [Installing the Command line RTE (Run-Time Environment)](https://github.com/deepakc7y/netronome-config/blob/main/configuration/README.md#installing-the-command-line-rte-run-time-environment)
+* [Pre-requisities]()
+  - [Host System Details]()
+  - [SmartNIC Details]()
+  - [Enabling SRIOV Support in the Boot Menu]()
+  - [Ensure that the Netronome SmartNIC appears as one of the Ethernet Controllers]()
+  - [Using the Recommended Kernel Version with Netronome]()
+  - [Installing the Ethernet Driver]()
 
-## Initial Configuration
+* [The Guide to Configuring a Netronome SmartNIC]()
+  - [SDK Installation]()
+  - [Installing the P4 Runtime Environment]()
+  - [Installing SRIOV-supported Firmware]()
+  - [Creating Virtual Functions by configuring SRIOV]()
+
+* [Additional Optional Configurations]()
+  - [To enable NFP ports for 1G RJ45 Connections]()
+  - [To see the Netronome SmartNIC Physical Interfaces]()
+  - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]]()
+
+## Pre-requisites
 
 ### Host System Details
 - Motherboard - Asus Prime Z690 P D4 [[Link]](https://www.asus.com/in/Motherboards-Components/Motherboards/PRIME/PRIME-Z690-P-D4/)
@@ -25,7 +32,7 @@
 ### SmartNIC Details
 - Netronome Agilio SmartNIC CX 2x10GbE [[Link]](https://www.netronome.com/products/agilio-cx/)
 
-### Enabling the SRIOV Support in the boot menu
+### Enabling the SRIOV Support in the Boot Menu
 
 SR-IOV is a PCI feature that allows virtual functions (VFs) to be created from a physical function (PF). The VFs thus share the resources of a PF, while VFs remain isolated from each other. The isolated VFs are typically assigned to virtual machines (VMs) on the host. In this way, the VFs allow the VMs to directly access the PCI device, thereby bypassing the host kernel. [[Source]](https://help.netronome.com/support/solutions/articles/36000049975-basic-firmware-user-guide#using-sr-iov)
 
@@ -35,248 +42,132 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 
 [[Image Source]](https://dlcdnets.asus.com/pub/ASUS/mb/13MANUAL/PRIME_PROART_TUF_GAMING_Intel_600_Series_BIOS_EM_WEB_EN.pdf)
 
-### Ensure that the Netronome Card appears as one of the Ethernet Controllers
+### Ensure that the Netronome SmartNIC appears as one of the Ethernet Controllers
 
 It can be done using the following commands
 
 ```lspci -vvv -d 19ee:``` to confirm PCIe configuration of SmartNIC(s)
 
+```dmesg | grep nfp``` to check for system-generated messages the SmartNIC.
+
+### Using the Recommended Kernel Version with Netronome
+
+This section details the process of configuring the Ubuntu 18.04 LTS (Bionic Beaver) system to utilize the kernel version recommended by Netronome.
+
+Based on Netronome's support documentation ([reference](https://help.netronome.com/support/solutions/articles/36000184708-tested-linux-versions)), kernel version 4.15 is officially tested and recommended for compatibility with Netronome solutions. While you may have used a newer kernel version (e.g., 5.4) without encountering issues, adhering to the recommended version will avoid any potential problems.
+
+To boot your OS into a different kernel version, perform the following steps:
+
+- ```sudo apt update``` updates the packages
+
+- Modify GRUB Configuration
+  - Edit the GRUB configuration file using nano: ```sudo nano /etc/default/grub```
+  - Within the file, locate and modify the following lines:
+    - Change ```GRUB_TIMEOUT_STYLE=menu``` (enables a menu for selecting the kernel version)
+    - Change ```GRUB_TIMEOUT=10``` (sets the menu display time to 10 seconds)
+  - Save the changes and exit the editor (Ctrl+S, then Ctrl+X).
+  - ```sudo update-grub``` and reboot the system
+
+- Download Required Kernel Deb Packages: Navigate to the Ubuntu mainline kernel archive for version 4.15 ([source](https://kernel.ubuntu.com/mainline/v4.15/)) and download the following ```.deb``` packages under the ```amd64``` architecture:
+  - linux-headers-4.15.0-041500_4.15.0-041500.201802011154_all.deb
+  - linux-headers-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
+  - linux-image-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
+  
+- Install Downloaded Packages:
+  - Create a new directory to store the downloaded .deb files (e.g., v4.15).
+  - Move the downloaded files to the newly created directory.
+  - Navigate to the directory using ```cd v4.15/```
+  - Install the packages using ```sudo dpkg -i *.deb```
+
+- Reboot your system. During the boot process, you should see a menu with available kernel versions (enabled by modifying GRUB_TIMEOUT_STYLE in step 2). Select the newly installed kernel version (e.g., ```4.15.0-041500-generic```) and boot into your system.
+
+Once booted, you can verify the active kernel version by running ```uname -r```. This command should display 4.15.0-041500-generic or a similar version number indicating kernel 4.15 is now active.
+
+### Installing the Ethernet Driver
+
+This section details the process of installing the necessary driver for the Realtek ethernet controller commonly found on ASUS motherboards. This driver resolves known compatibility issues with Ubuntu 18.04 and enables functionality of the onboard LAN port.
+
+- Ensure you have an Internet connection (temporary solution like a WiFi card)
+- Downloaded driver package ```r8125-9.007.01.tar.bz2``` and extract it
+- ```sudo apt update```
+- ```sudo apt install make make-guile gcc```
+- ```cd r8125-9.007.01/```
+- ```sudo chmod +x autorun.sh```
+- ```sudo ./autorun.sh```
+
+## The Guide to Configure a Netronome SmartNIC
+
+This section details the process of installing and configuring the Netronome Software Development Kit (SDK) to enable you to develop and execute programs on your Netronome SmartNIC card. The SDK provides the necessary tools and libraries for interacting with the card's hardware and implementing custom functionalities.
+
+### SDK Installation
+- Add Netronome Public Key
+  - ```wget https://rpm.netronome.com/gpg/NetronomePublic.key```
+  - ```sudo apt-key add NetronomePublic.key```
+
+This downloads the Netronome public key and adds it to your system's trusted keyrings. This key is used to verify the integrity of the software packages you'll install from Netronome repositories.
+
+- Add Netronome Repository
+  - ```mkdir -p /etc/apt/sources.list.d/```
+  - ```echo "deb https://deb.netronome.com/apt stable main" > /etc/apt/sources.list.d/netronome.list```
+  - ```sudo apt update```
+
+These commands create a new directory for custom APT sources and add a new entry for the Netronome repository. Finally, it updates the package list to include packages available from the Netronome repository.
+
+```sudo apt install agilio-naming-policy libftdi1 libjansson4 build-essential linux-headers-`uname -r` dkms git net-tools libelf-dev```
+
+This command installs various dependencies required for building and running the Netronome SDK, including libraries for interfacing with hardware (libftdi1), data serialization (libjansson4), development tools (build-essential), kernel headers for the current kernel version (linux-headers-uname -r), kernel modules support (dkms), version control system (git), network utilities (net-tools), and ELF file handling (libelf-dev).
+
+- Install Netronome SDK Package (Root Privileges Required)
+  - ```sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb```
+
+Replace nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb with the actual filename of the downloaded Netronome SDK package. This command installs the core Netronome SDK components and initializes the /opt/netronome directory.
+
+- Configure Environment Variables
+
 ```
-zenlab@zenlab690:~$ sudo lspci -d19ee:
-03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
-``` 
-
-```dmesg | grep nfp``` to check for system-generated messages the SmartNIC
-
-```
-zenlab@zenlab690:~$ dmesg | grep nfp
-[    1.011845] nfp: NFP PCIe Driver, Copyright (C) 2014-2017 Netronome Systems
-[    1.011947] nfp 0000:03:00.0: Netronome Flow Processor NFP4000/NFP5000/NFP6000 PCIe Card Probe
-[    1.011954] nfp 0000:03:00.0: 31.504 Gb/s available PCIe bandwidth, limited by 8 GT/s x4 link at 0000:00:1b.4 (capable of 63.008 	Gb/s with 8 GT/s x8 link)
-[    1.011973] nfp 0000:03:00.0: RESERVED BARs: 0.0: General/MSI-X SRAM, 0.1: PCIe XPB/MSI-X PBA, 0.4: Explicit0, 0.5: Explicit1, free: 20/24
-[    1.012018] nfp 0000:03:00.0: Model: 0x62000010, SN: 00:15:4d:13:5c:5c, Ifc: 0x10ff
-[    1.020159] nfp 0000:03:00.0: Assembly: SMCAMDA0096-000117290565-11 CPLD: 0x1030000
-[    1.020474] nfp 0000:03:00.0: nfp_nsp: Service processor busy!
-[    1.020478] nfp 0000:03:00.0: Failed to access the NSP: -16
-[    1.020549] nfp: probe of 0000:03:00.0 failed with error -16
-``` 
-
-### Ensure that ERR47 Kernel Patch is already done
-	
-Linux kernels exhibit undesired behavior in PCIe configuration code. Netronome submitted a fix to the kernel maintainers for this issue which has been accepted into kernel version 4.5.
-
-You can check for the Kernel patch using this command:
-
-```
-root@zenlab690:~# if /opt/nfp_pif/scripts/err47_check.sh; then echo "Kernel is good"; else
-> echo "Kernel patch needed"; fi
-Kernel is good
+cat >> ~/.bash_profile << 'EOF'
+# Netronome SDK
+PATH=$PATH:/opt/netronome/bin
+export PATH
+EOF
+source ~/.bash_profile
 ```
 
-If Kernel patch is needed, refer to [this article](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
+These commands add the /opt/netronome/bin directory to your system's PATH environment variable. This allows you to access Netronome SDK tools like nfp-sdk6_build and nfp-sdk6_rte from any terminal session without specifying the full path.
 
-### Enable ```nfp_dev_cpp```
+Now, reboot and verify installation.
+
+
+### Installing P4 Runtime Environment
+
+The P4 Runtime environment can be installed using the following three commands (root priviliges required):
+
+- ```tar xvf nfp-sdk-p4-rte-6.1.0.1-preview-3214.ubuntu.x86_64.tgz```
+- ```cd nfp-sdk-6-rte-v6.1.0.1-preview-Ubuntu-Release-r2750-2018-10-10-ubuntu.binary/```
+- ```sudo ./sdk6_rte_install.sh install```
+
+There's a chance the installation might fail on the first attempt, even if your system meets the requirements. In such cases, where you encounter errors about system compatibility or missing DKMS, simply re-run the same installation command.
 
 One of the ways to access the SmartNIC is using the ```nfp_dev_cpp```. The in-tree version of the NFP Module disables this option, so in order to enable it we have to install the nfp-drv-kmods repository
 
-Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/nfp-drv-kmods), extract it and run the following commands from the repository.
+Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/nfp-drv-kmods), extract it to the ```/home``` directory and run the following commands from the repository.
 
-```
-- make
-- make install
-- depmod -a
-- make clean
-- cat /sys/module/nfp/parameters/nfp_dev_cpp to check the value of nfp_dev_cpp
-- sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1 to remove and reload the nfp module and set nfp_dev_cpp = 1
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make
-make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules
-make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp6000_pcie.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_cppcore.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_cpplib.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_dev.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_em_manager.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_hwinfo.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_mip.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_mutex.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nbi.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nffw.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp_cmds.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nsp_eth.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_platform.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_resource.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_rtsym.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_target.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_nbi_mac_eth.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_net_vnic.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_debugdump.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_plat.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_hwmon.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_dev_cpp.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfpcore/nfp_export.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfd3/dp.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfd3/rings.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfdk/dp.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfdk/rings.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_app.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/ccm_mbox.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_ctrl.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_common.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_compat.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_dp.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_ethtool.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_debugfs.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_sriov.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_port.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/crypto/tls.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_app_nic.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_ctrl.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nic/main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_devlink.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/devlink_param.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_shared_buf.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/ccm.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_asm.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/cmsg.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/offload.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/verifier.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/bpf/jit.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_net_repr.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/action.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/cmsg.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/lag_conf.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/match.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/metadata.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/offload.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/tunnel_conf.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/flower/qos_conf.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/cls.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/ctrl.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/main.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/abm/qdisc.o
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_netvf_main.o
-  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.o
-  Building modules, stage 2.
-  MODPOST 1 modules
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.mod.o
-  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
-make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make install
-make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules
-make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
-  CC [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp_main.o
-  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.o
-  Building modules, stage 2.
-  MODPOST 1 modules
-  LD [M]  /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
-make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
-make -C /lib/modules/5.4.0-107-generic/build M=`pwd`/src modules_install
-make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
-  INSTALL /home/zenlab/Downloads/nfp-drv-kmods/src/nfp.ko
-At main.c:160:
-- SSL error:02001002:system library:fopen:No such file or directory: ../crypto/bio/bss_file.c:72
-- SSL error:2006D080:BIO routines:BIO_new_file:no such file: ../crypto/bio/bss_file.c:79
-sign-file: certs/signing_key.pem: No such file or directory
-  DEPMOD  5.4.0-107-generic
-Warning: modules_install: missing 'System.map' file. Skipping depmod.
-make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo depmod -a
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo make clean
-make -C /lib/modules/5.4.0-107-generic/build M=`pwd` clean
-make[1]: Entering directory '/usr/src/linux-headers-5.4.0-107-generic'
-make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-107-generic'
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_dev_cpp
-cat: /sys/module/nfp/parameters/nfp_dev_cpp: No such file or directory
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
-rmmod nfp
-rmmod tls
-```
-```
-zenlab@zenlab690:~/Downloads/nfp-drv-kmods$ cat /sys/module/nfp/parameters/nfp_dev_cpp
-1
-```
+- ```cd nfp-drv-kmods/```
+- ```sudo make``` // compiles the kernel module source code into a loadable module
+- ```sudo make install``` // installs the compiled module (nfp.ko) into the appropriate kernel module directory.
+- ```sudo depmod -a``` // informs the kernel dependency manager (depmod) about the newly installed module
+- ```sudo make clean``` // cleans up any temporary build files
+- ```sudo modprobe -r -v nfp``` // unloads any currently loaded nfp module
+- ```sudo modprobe nfp nfp_dev_cpp=1 nfp_pf_netdev=0``` // reloads the nfp module
 
-### Follow the official Basic Firmware Guide 
+### Installing SRIOV-supported firmware
+Netronome SmartNICs offer the ability to create Virtual Functions (VFs), essentially splitting the physical network interface card (NIC) into multiple logical ones. This enables efficient resource utilization by allowing you to share the capabilities of a single SmartNIC with multiple virtual machines (VMs) or containerized applications.
 
-Follow the [basic firmware guide](https://help.netronome.com/support/solutions/articles/36000049975-basic-firmware-user-guide) and configure the smartNIC as per your requirements.
+- Download Basic Firmware with SRIOV support for Ubuntu from [Netronome's support website](https://help.netronome.com/support/solutions/articles/36000052070-agilio-smartnic-basic-firmware-v-2-1-16-1)
+- ```sudo dpkg -i agilio-sriov-firmware-2.1.16.1-1.deb``` installs the firmware.
+- To verify the installation, use the ```ethtool``` command. Look for the firmware-version field in the output, which should now include ```sriov``` in the version string.
 
-### Creating Virtual Functions (VFs)
-
-#### Installing SRIOV Capable Firmware
-
-One of the strengths of a SmartNIC is its ability to create VFs. After enabling SRIOV from BIOS, we must install SRIOV capable firmware onto the SmartNIC. 
-
-```
-zenlab@zenlab690:~$ ethtool -i enp3s0np0np0 | head -3
-driver: nfp
-version: no-src-ver (o-o-t)
-firmware-version: 0.0.3.5 0.25 nic-2.1.16 nic
-```
-
-From the above output, we can see that the current firmware being used is the one without SRIOV functionality and with basic NIC functionality.
-2.1.16 denotes the version of the firmware.
-
-Download the SRIOV capable firmware from this [link](https://help.netronome.com/support/solutions/articles/36000052070-agilio-smartnic-basic-firmware-v-2-1-16-1) and install it using the following steps.
-
-(Note: Ensure that you download the basic firmware **with SRIOV Support**)
-
-```
-zenlab@zenlab690:~$ sudo dpkg -i agilio-sriov-firmware-2.1.16.1-1.deb
-Selecting previously unselected package agilio-sriov-firmware.
-(Reading database ... 174507 files and directories currently installed.)
-Preparing to unpack agilio-sriov-firmware-2.1.16.1-1.deb ...
-Unpacking agilio-sriov-firmware (2.1.16.1-1) ...
-Setting up agilio-sriov-firmware (2.1.16.1-1) ...
-update-initramfs: Generating /boot/initrd.img-5.4.0-107-generic
-W: Possible missing firmware /lib/firmware/rtl_nic/rtl8125a-3.fw for module r8169
-W: Possible missing firmware /lib/firmware/rtl_nic/rtl8168fp-3.fw for module r8169
-update-initramfs: Generating /boot/initrd.img-5.3.0-28-generic
-```
-```
-zenlab@zenlab690:~$ ls -og --time-style="+" /lib/firmware/netronome
-total 56
-drwxr-xr-x 2 4096  flower
-drwxr-xr-x 2 4096  nic
-lrwxrwxrwx 1   64  nic_AMDA0058-0011_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0058-0011_2x40.nffw
-lrwxrwxrwx 1   64  nic_AMDA0058-0012_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0058-0012_2x40.nffw
-lrwxrwxrwx 1   65  nic_AMDA0078-0011_1x100.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0078-0011_1x100.nffw
-lrwxrwxrwx 1   64  nic_AMDA0081-0001_1x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0081-0001_1x40.nffw
-lrwxrwxrwx 1   64  nic_AMDA0081-0001_4x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0081-0001_4x10.nffw
-lrwxrwxrwx 1   64  nic_AMDA0096-0001_2x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0096-0001_2x10.nffw
-lrwxrwxrwx 1   64  nic_AMDA0097-0001_2x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_2x40.nffw
-lrwxrwxrwx 1   69  nic_AMDA0097-0001_4x10_1x40.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_4x10_1x40.nffw
-lrwxrwxrwx 1   64  nic_AMDA0097-0001_8x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0097-0001_8x10.nffw
-lrwxrwxrwx 1   69  nic_AMDA0099-0001_1x10_1x25.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_1x10_1x25.nffw
-lrwxrwxrwx 1   64  nic_AMDA0099-0001_2x10.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_2x10.nffw
-lrwxrwxrwx 1   64  nic_AMDA0099-0001_2x25.nffw -> /opt/netronome/agilio-sriov-firmware/nic_AMDA0099-0001_2x25.nffw
-```
-
-Next, remove the NFP Driver and then reload it again. This will ensure that the firmware with SRIOV Support is installed onto the SmartNIC.
-
-```
-zenlab@zenlab690:~$ sudo modprobe -r nfp
-zenlab@zenlab690:~$ sudo modprobe nfp
-```
-
-We can confirm the SRIOV capable firmware using the following command:
-
+Example:
 ```
 zenlab@zenlab690:~$ ethtool -i enp3s0np0np0 | head -3
 driver: nfp
@@ -284,303 +175,47 @@ version: no-src-ver (o-o-t)
 firmware-version: 0.0.3.5 0.25 sriov-2.1.16.1 nic
 ```
 
-The firmware has been successfully changed from ```nic-2.1.16``` to ```sriov-2.1.16.1```
+### Creating Virtual Functions by configuring SRIOV
 
-#### Configuring the SRIOV and creating two virtual functions
+**Check Current VF Count:** Use the ```cat /sys/class/net/enp3s0np0np0/device/sriov_numvfs``` command to determine the number of currently configured VFs on your SmartNIC. Initially, this value will be ```zero```.
 
-Till this point we have ensured that we have all the necessary firmwares and repositories to create virtual functions, but we haven't created any. There are currently zero VFs on our SmartNIC. This can be checked using the following command
+**Verify Maximum Supported VFs:** The total number of VFs supported by your SmartNIC can be obtained using the ```cat /sys/class/net/enp3s0np0np0/device/sriov_totalvfs``` command.
 
-```
-zenlab@zenlab690:~$ cat  /sys/class/net/enp3s0np0np0/device/sriov_numvfs
-0
-```
-
-The total number of supported VFs on your smartNIC can be checked using the following command
+**Create VFs:** Specify the desired number of VFs you want to create using the following command, replacing ```<number>``` with the actual number of VFs (up to the maximum supported value):
 
 ```
-zenlab@zenlab690:~$ cat /sys/class/net/enp3s0np0np0/device/sriov_totalvfs
-48
+echo <number> > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
 ```
 
-The command ```lspci -d19ee: -k``` now returns only one result because have one Physical Function (PF) and zero VFs.
+**Verify VF Creation:** After executing the command, use ```cat /sys/class/net/enp3s0np0np0/device/sriov_numvfs``` again to confirm that the number of VFs has been updated.
 
+**Identify VF Interfaces:** The newly created VFs will appear as separate network interfaces. You can list them using command like ```ip addr``` show. Their names will typically follow a pattern similar to the physical NIC interface name, with additional suffixes to differentiate them (e.g., enp3s0np1np1, enp3s0np2np2).
+
+Example:
 ```
 root@zenlab690:~# lspci -d19ee: -k
 03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
-	Subsystem: Netronome Systems, Inc. Device 4000
-	Kernel driver in use: nfp
-	Kernel modules: nfp
-```
+Subsystem: Netronome Systems, Inc. Device 4000
+Kernel driver in use: nfp
+Kernel modules: nfp
 
-Although we can create up to 48 VFs in this SmartNIC, we will be creating two VFs as an example.
-
-```
-root@zenlab690:~# echo 2 > /sys/class/net/enp3s0np0np0/device/sriov_numvfs
-```
-
-```enp3s0np0np0``` is the interface of the SmartNIC's PF.
-
-We get to see the two VFs after the executing above command
-
-```
-root@zenlab690:~# cat /sys/class/net/enp3s0np0np0/device/sriov_numvfs
-2
-```
-```
-root@zenlab690:~# lspci -d19ee: -k
-03:00.0 Ethernet controller: Netronome Systems, Inc. Device 4000
-	Subsystem: Netronome Systems, Inc. Device 4000
-	Kernel driver in use: nfp
-	Kernel modules: nfp
 03:08.0 Ethernet controller: Netronome Systems, Inc. Device 6003
-	Subsystem: Netronome Systems, Inc. Device 4000
-	Kernel driver in use: nfp_netvf
-	Kernel modules: nfp
+Subsystem: Netronome Systems, Inc. Device 4000
+Kernel driver in use: nfp_netvf
+Kernel modules: nfp
+
 03:08.1 Ethernet controller: Netronome Systems, Inc. Device 6003
-	Subsystem: Netronome Systems, Inc. Device 4000
-	Kernel driver in use: nfp_netvf
-	Kernel modules: nfp
+Subsystem: Netronome Systems, Inc. Device 4000
+Kernel driver in use: nfp_netvf
+Kernel modules: nfp
 ```
 
 ```03:08.0``` and ```03:08.1``` are the PCI addresses of our two VFs and you can also see that they use ```nfp_netvf``` driver instead of ```nfp``` driver used by the PF.
 
-**Note**: You can find the interface of your SmartNIC's PF using ```ifconfig -a``` or ```ip a``` after completing step 5.
+## Additional Configurations
 
-```
-zenlab@zenlab690:~$ ifconfig -a
-enp3s0np0np0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        ether 00:15:4d:13:5c:5d  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+### To enable NFP ports for 1G RJ45 Connections
 
-enp3s0np1np1: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        ether 00:15:4d:13:5c:5e  txqueuelen 1000  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 0  bytes 0 (0.0 B)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
-        loop  txqueuelen 1000  (Local Loopback)
-        RX packets 781  bytes 78699 (78.6 KB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 781  bytes 78699 (78.6 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
-wlx687f746839ba: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.1.163  netmask 255.255.255.0  broadcast 192.168.1.255
-        inet6 fe80::f231:3afd:644a:d376  prefixlen 64  scopeid 0x20<link>
-        inet6 fd77:2b3d:8de7:0:99c6:d3f7:5a5a:790  prefixlen 64  scopeid 0x0<global>
-        inet6 fd77:2b3d:8de7::b1c  prefixlen 128  scopeid 0x0<global>
-        inet6 fd77:2b3d:8de7:0:580f:542e:40c6:66ec  prefixlen 64  scopeid 0x0<global>
-        ether 68:7f:74:68:39:ba  txqueuelen 1000  (Ethernet)
-        RX packets 2197  bytes 1942238 (1.9 MB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 2169  bytes 272453 (272.4 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-```
-
-### Installing the Command line RTE (Run-Time Environment)
-
-Download the NFP SDK Packages from the official website. You should get the access to all the SDK related files once you have registered the Netronome Card.
-
-Run the following commands:
-
-```
-Install the necessary packages
-apt-get install libftdi1 libjansson4 build-essential \
- linux-headers-`uname -r` dkms git
-```
-```sudo dpkg -i nfp-sdk_6.1.0.1-preview-3243-2_amd64.deb``` creates the /opt/netronome directory
-
-```
-Add to the path where the binaries will be installed
-cat >> ~/.bash_profile << 'EOF'
-
-# Netronome SDK
-PATH=$PATH:/opt/netronome/bin
-export PATH
-EOF
-source ~/.bash_profile
-```
-```
-Add the Netronome Public Key and Update
-wget https://deb.netronome.com/gpg/NetronomePublic.key
-apt-key add NetronomePublic.key
-add-apt-repository "deb https://deb.netronome.com/apt stable main"
-apt-get update
-```
-
-and then **reboot** the system.
-
-Also ensure that ```nfp_dev_cpp = 1```. If you encounter an error, remove and reload the ```nfp``` module using the following command
-
-```
-sudo modprobe -r -v nfp && sudo modprobe nfp nfp_dev_cpp=1
-```
-
-If you encounter an error even after reloading the module, then repeat step 4 again.
-
-Ensure that ```nfp-hwinfo``` is talking to the card using the following command. Ensure that the output is similar to the one below.
-
-```
-sudo /opt/netronome/bin/nfp-hwinfo
-
-zenlab@zenlab690:~$ sudo /opt/netronome/bin/nfp-hwinfo
-nfp.interface=pci.0.0
-nfp.model=0x62000010
-nfp.serial=00:15:4d:13:5c:5c
-assembly.revision=11
-assembly.model=lithium
-assembly.partno=AMDA0096-0001
-assembly.serial=17290565
-assembly.vendor=SMC
-ddr0.spd=spi:1:0:0x3F0F00
-ddr1.spd=spi:1:0:0x3F0F00
-ddr2.spd=none
-ddr3.spd=none
-ddr4.spd=none
-ddr5.spd=none
-emu1.type=cache
-emu2.type=cache
-ethm.mac=00:15:4d:13:5c:5c
-eth.mac=00:15:4d:13:5c:5d
-eth.macs=2
-pcie0.type=ep
-chip.model=NFP4001
-chip.revision=B0
-chip.model.device=0x62006020
-chip.identifier=0xd78f8d460
-chip.model.hard=0x5
-chip.model.soft=0x40010096
-chip.route=0x26843312
-chip.island=0x1001f13000112
-core.speed=633
-me.speed=633
-arm.speed=475
-nfp-boot.version= ()
-bsp.version.primary=01011b
-bsp.version.secondary=01011b
-flash.data.bus=1
-ddr0.mem.size=1024
-ddr1.mem.size=1024
-ddr0.mem.speed=1600
-ddr1.mem.speed=1600
-emu0.mem.size=2048
-emu0.mem.base=0x2000000000
-emu1.mem.size=3
-emu1.mem.base=0x9900000000
-emu2.mem.size=0
-emu2.mem.base=0x0
-arm.mem.size=96
-arm.mem.base=0x207a000000
-cpld.location=spi:2:2:4
-pmon.limit=25.0
-pmon.12v=cpld:7:I:32_0:0.00249:0
-pmon.3v3=static:0.54
-phy0.label=0
-phy0.nbi=0
-phy0.port=0
-phy0.lanes=1
-phy0.sff=8431
-phy0.pin.link=-cpld:2:2:0xd.0
-phy0.pin.activity=-cpld:2:2:0xd.3
-phy0.SFF-8431=ee1:0:0x50:0x0
-phy0.SFF-8472=ee1:0:0x51:0x0
-phy0.pin.present=-cpld:2:2:0x9.5
-phy0.pin.rate_select_0=cpld:2:2:0x9.2
-phy0.pin.rate_select_1=cpld:2:2:0x9.1
-phy0.pin.tx_disable=cpld:2:2:0x9.4
-phy0.pin.tx_fault=cpld:2:2:0x9.12
-phy0.pin.rx_los=cpld:2:2:0x9.0
-phy0.type=SFP+
-phy0.media=X
-eth0.media=X
-eth0.label=0.0
-eth0.phy=0
-eth0.lane=0
-eth0.lanes=1
-eth0.boot=1
-phy1.label=1
-phy1.nbi=0
-phy1.port=4
-phy1.lanes=1
-phy1.sff=8431
-phy1.pin.link=-cpld:2:2:0xd.4
-phy1.pin.activity=-cpld:2:2:0xd.7
-phy1.SFF-8431=ee1:1:0x50:0x0
-phy1.SFF-8472=ee1:1:0x51:0x0
-phy1.pin.present=-cpld:2:2:0x9.11
-phy1.pin.rate_select_0=cpld:2:2:0x9.8
-phy1.pin.rate_select_1=cpld:2:2:0x9.7
-phy1.pin.tx_disable=cpld:2:2:0x9.10
-phy1.pin.tx_fault=cpld:2:2:0x9.13
-phy1.pin.rx_los=cpld:2:2:0x9.6
-phy1.type=SFP+
-phy1.media=X
-eth4.media=X
-eth4.label=1.0
-eth4.phy=1
-eth4.lane=0
-eth4.lanes=1
-eth4.boot=1
-phy0.ledblink=cpld:2:2:0xd.10
-phy1.ledblink=cpld:2:2:0xd.12
-cpld.version=0x1030000
-eth0.mac=00:15:4d:13:5c:5d
-eth4.mac=00:15:4d:13:5c:5e
-board.state=15
-bootloader.version=default (e3136d5f74c39ed9b039cfccfb53a30b86d60cbb)
-bsp.version=01011b.01011b.0100ff
-```
-
-Proceed further only if ```nfp_dev_cpp = 1``` and ```nfp-hwinfo``` gives the expected output.
-
-### To see the Netronome SmartNIC Physical Interfaces
-
-```
-sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=1
-``` 
-
-## Host System Setup
-
-
-### Installing the ethernet driver
-
-The ASUS Motherboard used in the host system for the Netronome SmartNIC has ethernet driver issues with Ubuntu 18.04. The following steps resolve the issue and allows the usage of LAN port.
-
-```
-- apt update
-- apt install make make-guile gcc
-- cd Downloads/r8125-9.007.01/
-- chmod +x autorun.sh
-- ./autorun.sh
-```
-
-### Changing the Linux Kernel Version
-
-According to Netronome support, kernel version 4.15 is the only tested version for Ubuntu 18.04 [(source)](https://help.netronome.com/support/solutions/articles/36000184708-tested-linux-versions). The following steps details the process of changing the kernel version 
-
-```
-- apt update
-- acquire the kernel version packages
-- install the kernel version packages
-- sudo nano /etc/default/grub
-- GRUB_TIMELINE parameter
-- GRUB_TIMELINE parameter
-- update-grub2
-- reboot
-- select the kernel version from the GRUB menu under 'Advanced options for Ubuntu'
-```
-You can acquire the required kernel version from [here](https://kernel.ubuntu.com/~kernel-ppa/mainline/). Additional Resources that I found helpful - [1](https://support.huaweicloud.com/intl/en-us/trouble-ecs/ecs_trouble_0327.html), [2](https://techadminblog.com/boot-previous-kernel-version-ubuntu-16-04/), [3](https://youtu.be/Oobfg8srQwU).
-
-## Netronome Configurations
-
-### To enable NFP ports for 1G RJ45 connections
 Plug the SFP to RJ45 media converters by Cisco (Model details: ) to the physical ports of the Netronome smartNIC and run the following commands
 
 ```
@@ -627,4 +262,21 @@ phy1=1G (1G)
 
 Additional Reference - [Low cost 10G optical to 1G copper media converter - open nfp groups](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
 
+### To see the Netronome SmartNIC Physical Interfaces
 
+```
+sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=1
+``` 
+
+### Verifying the Kernel Patch for Netronome SmartNICs [Optional]
+
+Netronome identified an issue in the way Linux kernel handles Peripheral Component Interconnect Express (PCIe) configuration. This issue can lead to undesired behavior when working with Netronome SmartNICs. A fix for this issue, known as the ERR47 kernel patch, has been submitted by Netronome and integrated into the kernel.
+
+```
+root@zenlab690:~# if /opt/nfp_pif/scripts/err47_check.sh; then echo "Kernel is good"; else
+> echo "Kernel patch needed"; fi
+
+Kernel is good
+```
+
+If a kernel patch is needed, refer to [this article](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
