@@ -3,40 +3,8 @@
 This README file is structured as follows:
 - [Configuration of Netronome SmartNICs](https://github.com/deepakc7y/netronome-config/tree/main/configuration)
 - Running a MicroC Program on Netronome SmartNIC
-- Setting up Windows and Linux Development Workflow
 - Running a P4 Program on Netronome SmartNIC
-
-### To change the link speed of Netronome ports from 10G to 1G [[Reference]](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
-
-```
-zenlab@tsn1:~$ sudo /opt/netronome/bin/nfp-media
-phy0=10G (unset)
-phy1=10G (unset)
-
-root@tsn1:~# sudo chmod a+x /opt/netronome/bin/nfp-media 
-
-root@tsn1:~# sudo /opt/netronome/bin/nfp-media -n0 phy0=1G phy1=1G
- eth0: "0.0" 00:15:4d:13:5c:5d
- eth4: "1.0" 00:15:4d:13:5c:5e
-
-root@tsn1:~# sudo /opt/netronome/bin/nfp-media 
-phy0=1G (1G)
-phy1=1G (1G)
-```
-
-### To change the number of default VFs created when you load a P4/MicroC program to the SmartNIC
-
-By default, 4 VFs are initialized.
-
-- Go to the directory /lib/systemd/service/nfp-sdk6-rte.service
-- The environment variable named ```Environment=NUM_VFS=4``` allows changing the default number of VFs.
-- Reboot the host system.
+- Running a P4/MicroC Sandbox Program on Netronome SmartNIC.
 
 ### Acknowledgements
-
-
-### Netronome Help
-
-In the event that you are stuck with a problem, here's how I recommend you approach the problem:
-
-- The Netronome Team provides you with a bunch of documents in a zipped folder called as SDK Docs. Make sure that this folder is the first thing that comes to your mind and read them thoroughly. I'll often happen that when you read the document for the first time, you would not find a solution and a few weeks later when you are going through it, you end up finding solutions.
+This guide was prepared and compiled by Deepak Choudhary under the guidance of Prof. T. V. Prabhakar. Deepak's work is supported by the Centre for Networked Intelligence (a Cisco CSR initiative) at Indian Institute of Science, Bengaluru, India.

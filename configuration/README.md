@@ -17,6 +17,8 @@
   - [To enable NFP ports for 1G RJ45 Connections](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-enable-nfp-ports-for-1g-rj45-connections)
   - [To see the Netronome SmartNIC Physical Interfaces](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
   - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
+  - [Changing Netronome Port Link Speed from 10G to 1G](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
+  - [Configuring Default number of VFs for P4/MicroC Programs](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
 
 ## Pre-requisites
 
@@ -277,3 +279,29 @@ Kernel is good
 ```
 
 If a kernel patch is needed, refer to [this article](https://help.netronome.com/support/solutions/articles/36000054996-agilio-smartnics-err47-kernel-patch)
+
+### Changing Netronome Port Link Speed from 10G to 1G [[Reference]](https://groups.google.com/g/open-nfp/c/lWdZE4sCMvQ/m/sZ_G_jD8GQAJ)
+
+```
+zenlab@tsn1:~$ sudo /opt/netronome/bin/nfp-media
+phy0=10G (unset)
+phy1=10G (unset)
+
+root@tsn1:~# sudo chmod a+x /opt/netronome/bin/nfp-media 
+
+root@tsn1:~# sudo /opt/netronome/bin/nfp-media -n0 phy0=1G phy1=1G
+ eth0: "0.0" 00:15:4d:13:5c:5d
+ eth4: "1.0" 00:15:4d:13:5c:5e
+
+root@tsn1:~# sudo /opt/netronome/bin/nfp-media 
+phy0=1G (1G)
+phy1=1G (1G)
+```
+
+### Configuring Default number of VFs for P4/MicroC Programs
+
+By default, when you load a P4/MicroC program onto the smartNIC, 4 VFs are initialized. To change the default number, do the following:
+
+- Go to the directory /lib/systemd/service/nfp-sdk6-rte.service
+- The environment variable named ```Environment=NUM_VFS=4``` allows changing the default number of VFs.
+- Reboot the host system.
