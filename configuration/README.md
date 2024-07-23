@@ -1,24 +1,24 @@
 # Netronome SmartNIC Configuration
 
 ## Index
-* [Pre-requisities]()
-  - [Host System Details]()
-  - [SmartNIC Details]()
-  - [Enabling SRIOV Support in the Boot Menu]()
-  - [Ensure that the Netronome SmartNIC appears as one of the Ethernet Controllers]()
-  - [Using the Recommended Kernel Version with Netronome]()
-  - [Installing the Ethernet Driver]()
+* [Pre-requisities](https://github.com/deepakc7y/netronome-config/tree/main/configuration#pre-requisites)
+  - [Host System Details](https://github.com/deepakc7y/netronome-config/tree/main/configuration#host-system-details)
+  - [SmartNIC Details](https://github.com/deepakc7y/netronome-config/tree/main/configuration#smartnic-details)
+  - [Enabling SRIOV Support in the Boot Menu](https://github.com/deepakc7y/netronome-config/tree/main/configuration#enabling-the-sriov-support-in-the-boot-menu)
+  - [Ensure that the Netronome SmartNIC appears as one of the Ethernet Controllers](https://github.com/deepakc7y/netronome-config/tree/main/configuration#ensure-that-the-netronome-smartnic-appears-as-one-of-the-ethernet-controllers)
+  - [Using the Recommended Kernel Version with Netronome](https://github.com/deepakc7y/netronome-config/tree/main/configuration#using-the-recommended-kernel-version-with-netronome)
+  - [Installing the Ethernet Driver](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-the-ethernet-driver)
 
-* [The Guide to Configuring a Netronome SmartNIC]()
-  - [SDK Installation]()
-  - [Installing the P4 Runtime Environment]()
-  - [Installing SRIOV-supported Firmware]()
-  - [Creating Virtual Functions by configuring SRIOV]()
+* [The Guide to Configuring a Netronome SmartNIC](https://github.com/deepakc7y/netronome-config/tree/main/configuration#the-guide-to-configuring-a-netronome-smartnic)
+  - [SDK Installation](https://github.com/deepakc7y/netronome-config/tree/main/configuration#sdk-installation)
+  - [Installing the P4 Runtime Environment](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-p4-runtime-environment)
+  - [Installing SRIOV-supported Firmware](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-sriov-supported-firmware)
+  - [Creating Virtual Functions by configuring SRIOV](https://github.com/deepakc7y/netronome-config/tree/main/configuration#creating-virtual-functions-by-configuring-sriov)
 
 * [Additional Optional Configurations]()
-  - [To enable NFP ports for 1G RJ45 Connections]()
-  - [To see the Netronome SmartNIC Physical Interfaces]()
-  - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]]()
+  - [To enable NFP ports for 1G RJ45 Connections](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-enable-nfp-ports-for-1g-rj45-connections)
+  - [To see the Netronome SmartNIC Physical Interfaces](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
+  - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
 
 ## Pre-requisites
 
@@ -95,7 +95,7 @@ This section details the process of installing the necessary driver for the Real
 - ```sudo chmod +x autorun.sh```
 - ```sudo ./autorun.sh```
 
-## The Guide to Configure a Netronome SmartNIC
+## The Guide to Configuring a Netronome SmartNIC
 
 This section details the process of installing and configuring the Netronome Software Development Kit (SDK) to enable you to develop and execute programs on your Netronome SmartNIC card. The SDK provides the necessary tools and libraries for interacting with the card's hardware and implementing custom functionalities.
 
