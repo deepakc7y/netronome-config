@@ -8,13 +8,11 @@
   - [Ensure that the Netronome SmartNIC appears as one of the Ethernet Controllers](https://github.com/deepakc7y/netronome-config/tree/main/configuration#ensure-that-the-netronome-smartnic-appears-as-one-of-the-ethernet-controllers)
   - [Using the Recommended Kernel Version with Netronome](https://github.com/deepakc7y/netronome-config/tree/main/configuration#using-the-recommended-kernel-version-with-netronome)
   - [Installing the Ethernet Driver](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-the-ethernet-driver)
-
 * [The Guide to Configuring a Netronome SmartNIC](https://github.com/deepakc7y/netronome-config/tree/main/configuration#the-guide-to-configuring-a-netronome-smartnic)
   - [SDK Installation](https://github.com/deepakc7y/netronome-config/tree/main/configuration#sdk-installation)
   - [Installing the P4 Runtime Environment](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-p4-runtime-environment)
   - [Installing SRIOV-supported Firmware](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-sriov-supported-firmware)
   - [Creating Virtual Functions by configuring SRIOV](https://github.com/deepakc7y/netronome-config/tree/main/configuration#creating-virtual-functions-by-configuring-sriov)
-
 * [Additional Optional Configurations]()
   - [To enable NFP ports for 1G RJ45 Connections](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-enable-nfp-ports-for-1g-rj45-connections)
   - [To see the Netronome SmartNIC Physical Interfaces](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
