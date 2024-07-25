@@ -1,0 +1,1061 @@
++version:  1/1/2010
++switches:
+
++comp_ver Version:      6.1.0.1-preview
++Build number: 3243
++Build date:   Oct  9 2018 at 17:06:42
+
++compinfo: nfcc -Fo/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetp
++compinfo: rocessing/apps/lab5/ -Fe/home/zenlab/Documents/MicroC_programs/T
++compinfo: estJoy/c_packetprocessing/apps/lab5/wire_obj.list -W3 -chip nfp-
++compinfo: 4xxx-b0 -Qspill=7 -Qnn_mode=1 -Qno_decl_volatile -single_dram_si
++compinfo: gnal -Qnctx_mode=8 -I. -I/home/zenlab/Documents/MicroC_programs/
++compinfo: TestJoy/c_packetprocessing/microc/include -I/home/zenlab/Documen
++compinfo: ts/MicroC_programs/TestJoy/c_packetprocessing/microc/lib -FIconf
++compinfo: ig.h
+
+.chip_id nfp-4xxx-b0 0x10 0x10
+
+.%declare_resource "..brary/include/nfp_chipres.h" 110 emem0_queues global 0x400
+.%declare_resource "..brary/include/nfp_chipres.h" 121 emem1_queues global 0x400
+.%declare_resource "..brary/include/nfp_chipres.h" 162 cls_rings island 0x10
+.%declare_resource "..brary/include/nfp_chipres.h" 181 cls_apsignals island 0x10
+.%declare_resource "..brary/include/nfp_chipres.h" 197 cls_apfilters island 0x10
+.%declare_resource "..brary/include/nfp_chipres.h" 366 pcie0_cpp2pcie_bars global 0x8
+.%declare_resource "..brary/include/nfp_chipres.h" 367 pcie0_dma_cfg_regs global 0x10
+.%declare_resource "..brary/include/nfp_chipres.h" 369 pcie0_topci_hi global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 370 pcie0_topci_med global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 371 pcie0_topci_lo global 0x80
+.%declare_resource "..brary/include/nfp_chipres.h" 372 pcie0_frompci_hi global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 373 pcie0_frompci_med global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 374 pcie0_frompci_lo global 0x80
+.%declare_resource "..brary/include/nfp_chipres.h" 378 pcie1_cpp2pcie_bars global 0x8
+.%declare_resource "..brary/include/nfp_chipres.h" 379 pcie1_dma_cfg_regs global 0x10
+.%declare_resource "..brary/include/nfp_chipres.h" 381 pcie1_topci_hi global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 382 pcie1_topci_med global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 383 pcie1_topci_lo global 0x80
+.%declare_resource "..brary/include/nfp_chipres.h" 384 pcie1_frompci_hi global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 385 pcie1_frompci_med global 0x40
+.%declare_resource "..brary/include/nfp_chipres.h" 386 pcie1_frompci_lo global 0x80
+
+.%bigendian
+
+.%num_contexts 8
+.%ctx_range 0 7
+
+
+.%indirect_ref_mode nfp6000
+.%third_party_addressing 40bit
+.%local_mem0_mode rel
+.%local_mem1_mode rel
+.%local_mem2_mode rel
+.%local_mem3_mode rel
+.%init_nn_mode --
+.%neighbor_usage  0x0
+.%resource CAM        0
+.%resource CRC        0
+.%resource T_INDEX    0
+.%resource BYTE_INDEX 0
+
+.%alloc_mem _stats cls island 32 8 addr32
+.%alloc_mem _debug_idx emem global 8 addr40
+.%alloc_mem _debug emem global 2097152 16 addr40
+.%alloc_mem _counters imem0 global 40 16 addr40
+.%alloc_mem _customData imem0 global 32 16 addr40
+.%init_reg A6 0x0
+.%init_reg A7 0x0
+.%init_reg A13 0x1FFF
+.%init_reg A12 0x80000040
+.%init_reg A11 0x7F8
+.%init_reg B10 0x3F0
+.%init_reg B9 0x0
+.%init_reg A10 0x3FFF
+.%init_reg A9 0x3FF
+.%init_reg @B95 0x1FFF
+.%init_reg @A111 0xFFFF1FFF
+.%init_reg @A127 0xFFF
+.%init_reg @B127 0x8100
+.%init_reg @B111 0x3FFF
+:_count_packet#	28
+:_main#	0
+:_receive_packet#	10
+:_rewrite_packet#	137
+:_send_packet#	79
+:_ua_set_64_mem40#	130
+:l_355#	177
+:l_357#	188
+:l_359#	203
+:l_377#	224
+:l_379#	239
+:l_386#	39
+:l_421#	61
+:l_427#	71
+:l_432#	78
+:l_458#	96
+:l_459#	97
+:l_5052#	199
+:l_5054#	0
+:l_5055#	2
+:l_5056#	4
+:l_5057#	6
+:l_5058#	8
+:l_5059#	217
+:l_5060#	220
+:l_5061#	223
+:start#	0
+*a0 gpr_a_rel 00
+*a1 gpr_a_rel 01
+*a2 gpr_a_rel 02
+*a3 gpr_a_rel 03
+*a4 gpr_a_rel 04
+*a5 gpr_a_rel 05
+*a6 gpr_a_rel 06
+*a7 gpr_a_rel 07
+*a8 gpr_a_rel 08
+*a9 gpr_a_rel 09
+*a10 gpr_a_rel 0A
+*a11 gpr_a_rel 0B
+*a12 gpr_a_rel 0C
+*a13 gpr_a_rel 0D
+*a14 gpr_a_rel 0E
+*a15 gpr_a_rel 0F
+*b0 gpr_b_rel 00
+*b1 gpr_b_rel 01
+*b2 gpr_b_rel 02
+*b3 gpr_b_rel 03
+*b4 gpr_b_rel 04
+*b5 gpr_b_rel 05
+*b6 gpr_b_rel 06
+*b7 gpr_b_rel 07
+*b8 gpr_b_rel 08
+*b9 gpr_b_rel 09
+*b10 gpr_b_rel 0A
+*b11 gpr_b_rel 0B
+*b12 gpr_b_rel 0C
+*b13 gpr_b_rel 0D
+*b14 gpr_b_rel 0E
+*b15 gpr_b_rel 0F
+*$0 xfer_rel 000 1 both 0 0
+*$1 xfer_rel 001 1 both 0 0
+*$2 xfer_rel 002 1 both 0 0
+*$3 xfer_rel 003 1 both 0 0
+*$4 xfer_rel 004 1 both 0 0
+*$5 xfer_rel 005 1 both 0 0
+*$6 xfer_rel 006 1 both 0 0
+*$7 xfer_rel 007 1 both 0 0
+*$8 xfer_rel 008 1 both 0 0
+*$9 xfer_rel 009 1 both 0 0
+*$10 xfer_rel 00A 1 both 0 0
+*$11 xfer_rel 00B 1 both 0 0
+*$12 xfer_rel 00C 1 both 0 0
+*$13 xfer_rel 00D 1 both 0 0
+*$14 xfer_rel 00E 1 both 0 0
+*$15 xfer_rel 00F 1 both 0 0
+*$16 xfer_rel 010 1 both 0 0
+*$17 xfer_rel 011 1 both 0 0
+*$18 xfer_rel 012 1 both 0 0
+*$19 xfer_rel 013 1 both 0 0
+*$20 xfer_rel 014 1 both 0 0
+*$21 xfer_rel 015 1 both 0 0
+*$22 xfer_rel 016 1 both 0 0
+*$23 xfer_rel 017 1 both 0 0
+*$24 xfer_rel 018 1 both 0 0
+*$25 xfer_rel 019 1 both 0 0
+*$26 xfer_rel 01A 1 both 0 0
+*$27 xfer_rel 01B 1 both 0 0
+*$28 xfer_rel 01C 1 both 0 0
+*$29 xfer_rel 01D 1 both 0 0
+*$30 xfer_rel 01E 1 both 0 0
+*$31 xfer_rel 01F 1 both 0 0
+*n$0 neighbor_rel 000
+*n$1 neighbor_rel 001
+*n$2 neighbor_rel 002
+*n$3 neighbor_rel 003
+*n$4 neighbor_rel 004
+*n$5 neighbor_rel 005
+*n$6 neighbor_rel 006
+*n$7 neighbor_rel 007
+*n$8 neighbor_rel 008
+*n$9 neighbor_rel 009
+*n$10 neighbor_rel 00A
+*n$11 neighbor_rel 00B
+*n$12 neighbor_rel 00C
+*n$13 neighbor_rel 00D
+*n$14 neighbor_rel 00E
+*n$15 neighbor_rel 00F
+*@b111 gpr_b_abs EF
+*@b127 gpr_b_abs FF
+*@a127 gpr_a_abs 7F
+*@a111 gpr_a_abs 6F
+*@b95 gpr_b_abs DF
+.%import_expr common_code 0 <40:40:13,34:22:0> &bp 10 +
+.0 00D802908038 common_code
+	.%line 407 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 1 10
+/******/          pkt_hdr = receive_packet(&pkt_rxed, sizeof(pkt_rxed));
+_main#:
+l_5054#:
+	br[_receive_packet#], defer[1]
+.%import_expr common_code 1 <27:20:8,17:10:0> &bp 2 +
+.1 00F0000C0802 common_code
+	.%line 407 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:574 0
+	load_addr[a2, l_5055#]
+.%import_expr common_code 2 <40:40:13,34:22:0> &bp 137 +
+.2 00D822508038 common_code
+	.%line 410 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 1 137
+/******/          rewrite_packet(&pkt_rxed, pkt_hdr);
+l_5055#:
+	br[_rewrite_packet#], defer[1]
+.%import_expr common_code 3 <27:20:8,7:0:0> &bp 4 +
+.3 00F000001B04 common_code
+	.%line 410 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:574 0
+	load_addr[b6, l_5056#]
+.%import_expr common_code 4 <40:40:13,34:22:0> &bp 28 +
+.4 00D807108038 common_code
+	.%line 413 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 1 28
+/******/          count_packet(&pkt_rxed, pkt_hdr);
+l_5056#:
+	br[_count_packet#], defer[1]
+.%import_expr common_code 5 <27:20:8,17:10:0> &bp 6 +
+.5 00F0000C1803 common_code
+	.%line 413 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:574 0
+	load_addr[a3, l_5057#]
+.%import_expr common_code 6 <40:40:13,34:22:0> &bp 79 +
+.6 00D813D08038 common_code
+	.%line 419 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 1 79
+/******/          send_packet(&pkt_rxed.nbi_meta, pkt_hdr);
+l_5057#:
+	br[_send_packet#], defer[1]
+.%import_expr common_code 7 <27:20:8,7:0:0> &bp 8 +
+.7 00F000001308 common_code
+	.%line 419 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:574 0
+	load_addr[b4, l_5058#]
+.8 00F0000C0300 common_code
+	.%line 419 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 0
+l_5058#:
+	nop
+.%import_expr common_code 9 <40:40:13,34:22:0> &bp 0 +
+.9 00D800008038 common_code
+	.%line 419 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:574 0 0
+	br[l_5054#]
+.10 10511A0C2420 common_code
+	.%line 186 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:581 0
+/******/      pkt_nbi_recv(&pkt_rxed_in, sizeof(pkt_rxed->nbi_meta));
+_receive_packet#:
+	mem[packet_add_thread, $0, b9, 0, 6], ctx_swap[s1]
+.11 00B000260000 common_code
+	.%line 187 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+/******/      pkt_rxed->nbi_meta = pkt_rxed_in.nbi_meta;
+	alu[b2, --, B, $0]
+.12 0091A0420100 common_code
+	.%line 190 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+/******/      island   = pkt_rxed->nbi_meta.pkt_info.isl;
+	alu_shf[b4, --, B, $0, >>26]
+.13 009500020109 common_code
+	.%line 191 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+/******/      pnum     = pkt_rxed->nbi_meta.pkt_info.pnum;
+	alu_shf[b0, a9, AND, $0, >>16]
+.14 00C001101000 common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:578 0
+/******/      pkt_hdr  = pkt_ctm_ptr40(island, pnum, pkt_off);
+	ld_field_w_clr[a0, 0001, b4, >>0]
+.15 00AA003E0000 common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:578 0
+	alu[a3, a0, OR, 128]
+.16 009B0040020C common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:578 0
+	alu_shf[b4, a12, OR, b0, <<16]
+.17 008000380003 common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+	alu_shf[a3, --, B, a3, <<0]
+.18 00BA00401300 common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+	alu[b4, 0, OR, b4]
+.19 00AA405C0003 common_code
+	.%line 192 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 0
+	alu[a5, 0, OR, a3]
+.20 008080001305 common_code
+	.%line 194 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:577 0
+/******/      mem_read32(&(pkt_rxed_in.pkt_hdr), pkt_hdr, sizeof(pkt_rxed_in.pkt_hdr));
+	dbl_shf[a0, a5, b4, >>8]
+.21 00848037FE00 common_code
+	.%line 194 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:577 0
+	alu_shf[a3, a0, AND, 255, <<24]
+.22 0081B205F200 common_code
+	.%line 194 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:577 1
+	alu_shf[--, --, B, 188, <<5]
+.23 025C1E601003 common_code
+	.%line 194 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:577 0
+	mem[read32, $6, a3, <<8, b4, 24], ctx_swap[s1], indirect_ref
+.24 00E8003C0002 common_code
+	.%line 197 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:573 3 0 A2
+/******/      return pkt_hdr;}
+	rtn[a2], defer[3]
+.25 00B000760800 common_code
+	.%line 187 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:573 2
+/******/      pkt_rxed->nbi_meta = pkt_rxed_in.nbi_meta;
+	alu[b7, --, B, $2]
+.26 00B000161000 common_code
+	.%line 187 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:573 1
+	alu[b1, --, B, $4]
+.27 00A000062C00 common_code
+	.%line 195 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:573 0
+/******/      pkt_rxed->pkt_hdr = pkt_rxed_in.pkt_hdr;
+	alu[a0, --, B, $11]
+.28 008100280100 common_code
+	.%line 256 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+/******/      if (pkt_rxed->pkt_hdr.pkt.tpid!=0x8100) {
+_count_packet#:
+	alu_shf[a2, --, B, a0, >>16]
+.29 00AAB003FC02 common_code
+	.%line 256 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+	alu[--, a2, -, @b127]
+.%import_expr common_code 30 <40:40:13,34:22:0> &bp 39 +
+.30 00D809C08120 common_code
+	.%line 256 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0 39
+	beq[l_386#]
+.%import_expr common_code 31 <27:20:8,7:0:0> _counters &v 32 >> 0xffff &
+.31 00F040000300 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+/******/          mem_incr64(&counters.no_vlan);
+	immed_w0[b0, @_counters]
+.%import_expr common_code 32 <27:20:24,7:0:16> _counters &v 32 >> 0xffff0000 &
+.32 00F440000300 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	immed_w1[b0, @_counters]
+.%import_expr common_code 33 <27:20:8,17:10:0> _counters &v 0 + 0xffff &
+.33 00F0400C0002 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	immed_w0[a2, @_counters]
+.%import_expr common_code 34 <27:20:24,17:10:16> _counters &v 0 + 0xffff0000 &
+.34 00F4400C0002 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	immed_w1[a2, @_counters]
+.35 009080480302 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	dbl_shf[b4, b0, a2, >>8]
+.36 0094800C12FF common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	alu_shf[b0, b4, AND, 255, <<24]
+.37 044908080302 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0
+	mem[incr64, --, b0, <<8, a2]
+.%import_expr common_code 38 <40:40:13,34:22:0> &bp 78 +
+.38 00D813808038 common_code
+	.%line 257 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:589 0 78
+	br[l_432#]
+.39 00C003180000 common_code
+	.%line 259 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+/******/          if ((pkt_rxed->pkt_hdr.pkt.tci & 0xfff)==2) {
+l_386#:
+	ld_field_w_clr[b0, 0011, a0, >>0]
+.40 00A4400000FF common_code
+	.%line 259 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+	alu[a0, b0, AND, @a127]
+.41 00AAB00C0800 common_code
+	.%line 259 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+	alu[--, a0, -, 2]
+.%import_expr common_code 42 <40:40:13,34:22:0> &bp 61 +
+.42 00D80F408121 common_code
+	.%line 259 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0 61
+	bne[l_421#]
+.%import_expr common_code 43 <27:20:8,17:10:0> _counters &v 32 >> 0xffff &
+.43 00F0400C6000 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+/******/              mem_incr32(&counters.vlan_2);
+	immed_w0[a0, @_counters+24]
+.%import_expr common_code 44 <27:20:24,17:10:16> _counters &v 32 >> 0xffff0000 &
+.44 00F4400C0000 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	immed_w1[a0, @_counters+24]
+.%import_expr common_code 45 <27:20:8,7:0:0> _counters &v 24 + 0xffff &
+.45 00F040001318 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	immed_w0[b4, @_counters+24]
+.%import_expr common_code 46 <27:20:24,7:0:16> _counters &v 24 + 0xffff0000 &
+.46 00F440001300 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	immed_w1[b4, @_counters+24]
+.47 008080201300 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	dbl_shf[a2, a0, b4, >>8]
+.48 00848027FE02 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	alu_shf[a2, a2, AND, 255, <<24]
+.49 004900081302 common_code
+	.%line 260 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:591 0
+	mem[incr, --, a2, <<8, b4]
+.50 00855050050B common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+/******/              mem_add32_imm(PORT_TO_CHANNEL(pkt_rxed->nbi_meta.port), &customData.custom1); // Add Port Number
+	alu_shf[a5, a11, AND, b1, >>21]
+.%import_expr common_code 51 <27:20:8,7:0:0> _customData &v 32 >> 0xffff &
+.51 00F040000330 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	immed_w0[b0, @_customData]
+.%import_expr common_code 52 <27:20:24,7:0:16> _customData &v 32 >> 0xffff0000 &
+.52 00F440000300 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	immed_w1[b0, @_customData]
+.%import_expr common_code 53 <27:20:8,17:10:0> _customData &v 0 + 0xffff &
+.53 00F0400CC002 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	immed_w0[a2, @_customData]
+.%import_expr common_code 54 <27:20:24,17:10:16> _customData &v 0 + 0xffff0000 &
+.54 00F4400C0002 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	immed_w1[a2, @_customData]
+.55 009080480302 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	dbl_shf[b4, b0, a2, >>8]
+.56 0094800C12FF common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	alu_shf[b0, b4, AND, 255, <<24]
+.57 008B00088205 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0
+	alu_shf[a0, 0, OR, a5, <<16]
+.58 008BC204A600 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 1
+	alu_shf[--, a0, OR, 137, <<4]
+.59 064700080302 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:590 0
+	mem[add_imm, --, b0, <<8, a2, 1], indirect_ref
+.%import_expr common_code 60 <40:40:13,34:22:0> &bp 78 +
+.60 00D813808038 common_code
+	.%line 261 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:590 0 78
+	br[l_432#]
+.61 00AAB00C0C00 common_code
+	.%line 262 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0
+/******/          } else if ((pkt_rxed->pkt_hdr.pkt.tci & 0xfff)==3) {
+l_421#:
+	alu[--, a0, -, 3]
+.%import_expr common_code 62 <40:40:13,34:22:0> &bp 71 +
+.62 00D811C08121 common_code
+	.%line 262 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0 71
+	bne[l_427#]
+.%import_expr common_code 63 <27:20:8,7:0:0> _counters &v 32 >> 0xffff &
+.63 00F04000031C common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+/******/              mem_incr32(&counters.vlan_3);
+	immed_w0[b0, @_counters+28]
+.%import_expr common_code 64 <27:20:24,7:0:16> _counters &v 32 >> 0xffff0000 &
+.64 00F440000300 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	immed_w1[b0, @_counters+28]
+.%import_expr common_code 65 <27:20:8,17:10:0> _counters &v 28 + 0xffff &
+.65 00F0400C7000 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	immed_w0[a0, @_counters+28]
+.%import_expr common_code 66 <27:20:24,17:10:16> _counters &v 28 + 0xffff0000 &
+.66 00F4400C0000 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	immed_w1[a0, @_counters+28]
+.67 008080280300 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	dbl_shf[a2, b0, a0, >>8]
+.68 00948047FE02 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	alu_shf[b4, a2, AND, 255, <<24]
+.69 044900081300 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0
+	mem[incr, --, b4, <<8, a0]
+.%import_expr common_code 70 <40:40:13,34:22:0> &bp 78 +
+.70 00D813808038 common_code
+	.%line 263 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:592 0 78
+	br[l_432#]
+.%import_expr common_code 71 <27:20:8,17:10:0> _counters &v 32 >> 0xffff &
+.71 00F0400C8000 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+/******/              mem_incr32(&counters.vlan_other);
+l_427#:
+	immed_w0[a0, @_counters+32]
+.%import_expr common_code 72 <27:20:24,17:10:16> _counters &v 32 >> 0xffff0000 &
+.72 00F4400C0000 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	immed_w1[a0, @_counters+32]
+.%import_expr common_code 73 <27:20:8,7:0:0> _counters &v 32 + 0xffff &
+.73 00F040000320 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	immed_w0[b0, @_counters+32]
+.%import_expr common_code 74 <27:20:24,7:0:16> _counters &v 32 + 0xffff0000 &
+.74 00F440000300 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	immed_w1[b0, @_counters+32]
+.75 009080400300 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	dbl_shf[b4, a0, b0, >>8]
+.76 0084802C12FF common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	alu_shf[a2, b4, AND, 255, <<24]
+.77 004900080302 common_code
+	.%line 265 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:593 0
+	mem[incr, --, a2, <<8, b0]
+.78 00E8000C0003 common_code
+	.%line 268 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:571 0 0 A3
+/******/  }
+l_432#:
+	rtn[a3]
+.79 0091A0000900 common_code
+	.%line 315 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/      island = nbi_meta->pkt_info.isl;
+_send_packet#:
+	alu_shf[b0, --, B, b2, >>26]
+.80 008500000909 common_code
+	.%line 316 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/      pnum   = nbi_meta->pkt_info.pnum;
+	alu_shf[a0, a9, AND, b2, >>16]
+.81 00C001100004 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/      pbuf   = pkt_ctm_ptr40(island, pnum, 0);
+	ld_field_w_clr[a4, 0001, b0, >>0]
+.82 00AA002E0004 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:613 0
+	alu[a2, a4, OR, 128]
+.83 008100380200 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	alu_shf[a3, --, B, a0, <<16]
+.84 008000080002 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	alu_shf[a0, --, B, a2, <<0]
+.85 00AA408C0000 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	alu[a8, 0, OR, a0]
+.86 00840000080A common_code
+	.%line 318 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/      plen   = nbi_meta->pkt_info.len - MAC_PREPEND_BYTES;
+	alu_shf[a0, a10, AND, b2, >>0]
+.87 00BA802C1000 common_code
+	.%line 318 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	alu[b2, a0, -, 4]
+.88 008180000500 common_code
+	.%line 320 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/      channel_dst = nbi_meta->port;
+	alu_shf[a0, --, B, b1, >>24]
+.89 0081D0080200 common_code
+	.%line 330 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+/******/     q_dst = PORT_TO_CHANNEL(channel_dst) ? 0 : 128;
+	alu_shf[a0, --, B, a0, <<3]
+.%import_expr common_code 90 <40:40:13,34:22:0> &bp 96 +
+.90 00D818308120 common_code
+	.%line 330 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 3 96
+	beq[l_458#], defer[3]
+.91 008A10508603 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:613 2
+/******/      pbuf   = pkt_ctm_ptr40(island, pnum, 0);
+	alu_shf[a5, a3, OR, 1, <<31]
+.92 00BA406C0005 common_code
+	.%line 317 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:570 1
+	alu[b6, 0, OR, a5]
+.93 00F40C0C0180 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:607 0
+/******/      pkt_mac_egress_cmd_write(pbuf, pkt_off, 1, 1); // Write data to make the packet MAC egress generate L3 and L4 checksums
+	immed[$0, 49152, <<16]
+.%import_expr common_code 94 <40:40:13,34:22:0> &bp 97 +
+.94 00D818508038 common_code
+	.%line 330 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 1 97
+/******/     q_dst = PORT_TO_CHANNEL(channel_dst) ? 0 : 128;
+	br[l_459#], defer[1]
+.95 00F000000700 common_code
+	.%line 330 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:570 0
+	immed[b1, 0, <<0]
+.96 00F000000780 common_code
+	.%line 330 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+l_458#:
+	immed[b1, 128, <<0]
+.97 00FC04400000 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:596 1
+/******/      pkt_nbi_send(island,
+l_459#:
+	local_csr_rd[active_ctx_sts]
+.98 00F0000C0005 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:596 0
+	immed[a5, 0, <<0]
+.99 00A0C0001B44 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:607 0
+/******/      pkt_mac_egress_cmd_write(pbuf, pkt_off, 1, 1); // Write data to make the packet MAC egress generate L3 and L4 checksums
+	alu[a0, b6, +, 68]
+.100 00B8800C0008 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:607 0
+	alu[b0, a8, +carry, 0]
+.101 008080280300 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:612 0
+	dbl_shf[a2, b0, a0, >>8]
+.102 00948057FE02 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:612 0
+	alu_shf[b5, a2, AND, 255, <<24]
+.103 045F10001400 common_code
+	.%line 350 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:612 0
+	mem[write32, $0, b5, <<8, a0, 1], ctx_swap[s1]
+.104 00F0000C0181 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:599 0
+/******/      msi = pkt_msd_write(pbuf, pkt_off - MAC_PREPEND_BYTES); // Write a packet modification script of NULL
+	immed[$1, 0, <<0]
+.105 00B0C0001B38 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:599 0
+	alu[b0, b6, +, 56]
+.106 00A8800C0008 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:599 0
+	alu[a0, a8, +carry, 0]
+.107 009080500300 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:604 0
+	dbl_shf[b5, a0, b0, >>8]
+.108 0084802C16FF common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:604 0
+	alu_shf[a2, b5, AND, 255, <<24]
+.109 004110000202 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:604 2
+	mem[write, $0, a2, <<8, b0, 1], ctx_swap[s1], defer[2]
+.110 00F4080C1980 common_code
+	.%line 352 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:599 1
+	immed[$0, 32774, <<16]
+.111 008100001D00 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:570 0
+/******/      pkt_nbi_send(island,
+	alu_shf[a0, --, B, b7, >>16]
+.112 00C003100402 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	ld_field_w_clr[a2, 0011, b1, >>0]
+.113 009480001D27 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0
+	alu_shf[b0, 7, AND, b7, >>8]
+.114 009550182905 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:595 0
+	alu_shf[b1, b10, AND, a5, >>21]
+.115 00843058BD05 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:595 0
+	alu_shf[a5, 15, AND, a5, >>3]
+.116 00BA40100405 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:595 0
+	alu[b1, b1, OR, a5]
+.117 00B440100701 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu[b1, b1, AND, 1]
+.118 00BA40100702 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu[b1, b1, OR, 2]
+.119 0090C0100600 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu_shf[b1, --, B, b1, <<20]
+.120 008A80480604 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu_shf[a4, b1, OR, a4, <<24]
+.121 00B0C0100B44 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu[b1, b2, +, 68]
+.122 00BA40200403 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu[b2, b1, OR, a3]
+.123 00A40003BC00 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu[a0, a0, AND, @b111]
+.124 008B00080200 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu_shf[a0, b0, OR, a0, <<16]
+.125 00FC192C0000 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:597 0
+	local_csr_wr[cmd_indirect_ref_0, a0]
+.126 008B000EAE02 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 0
+	alu_shf[a0, 203, OR, a2, <<16]
+.127 008B72008E00 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:594 1
+	alu_shf[--, a0, OR, 3, <<9]
+.128 020700040B04 common_code
+	.%line 353 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:594 0
+	nbi[packet_ready_unicast, --, a4, <<8, b2], indirect_ref
+.129 00E800001300 common_code
+	.%line 377 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:570 0 0 B4
+/******/  }
+	rtn[b4]
+.130 00B080501004 common_code
+	.%line 1449 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 1 fiid:73 0
+/******/      __addr40 __mem uint64_t *p = (__addr40 __mem uint64_t *)((__addr40 __mem uint8_t *)ptr + off);
+_ua_set_64_mem40#:
+	alu[b5, a4, +, b4]
+.131 00B8C00C0005 common_code
+	.%line 1449 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 1 fiid:73 0
+	alu[b0, 0, +carry, a5]
+.132 008080400200 common_code
+	.%line 1451 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 1 fiid:73 0
+/******/      *p = val;
+	alu_shf[a4, --, B, b0, <<24]
+.133 004110001604 common_code
+	.%line 1451 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 1 fiid:73 2
+	mem[write, $0, a4, <<8, b5, 1], ctx_swap[s1], defer[2]
+.134 00A058000003 common_code
+	.%line 1451 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 0 fiid:73 1
+	alu[$0, --, B, a3]
+.135 00A058100002 common_code
+	.%line 1451 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 0 fiid:73 0
+	alu[$1, --, B, a2]
+.136 00E8000C0008 common_code
+	.%line 1452 "/opt/netronome/components/standardlibrary/microc/src/rtl.c" 1 fiid:73 0 0 A8
+/******/  }
+	rtn[a8]
+.137 008100280100 common_code
+	.%line 210 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/      if (pkt_rxed->pkt_hdr.pkt.tpid==0x8100) {
+_rewrite_packet#:
+	alu_shf[a2, --, B, a0, >>16]
+.138 00AAB003FC02 common_code
+	.%line 210 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[--, a2, -, @b127]
+.%import_expr common_code 139 <40:40:13,34:22:0> &bp 203 +
+.139 00D832C08121 common_code
+	.%line 210 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 203
+	bne[l_359#]
+.140 00C003180000 common_code
+	.%line 211 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/          vlan = pkt_rxed->pkt_hdr.pkt.tci & 0xfff;
+	ld_field_w_clr[b0, 0011, a0, >>0]
+.141 00B4400000FF common_code
+	.%line 211 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b0, AND, @a127]
+.142 00AAF0000302 common_code
+	.%line 216 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/          if (vlan==2) {
+	alu[--, b0, -, 2]
+.%import_expr common_code 143 <40:40:13,34:22:0> &bp 177 +
+.143 00D82C408121 common_code
+	.%line 216 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 177
+	bne[l_355#]
+.144 00A0C0201314 common_code
+	.%line 217 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/              pkt_hdr->pkt.tci = pkt_hdr->pkt.tci & 0x1fff; // Priority 0
+	alu[a2, b4, +, 20]
+.145 00B8800C0005 common_code
+	.%line 217 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, a5, +carry, 0]
+.146 009080000200 common_code
+	.%line 217 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[b0, --, B, b0, <<24]
+.147 044316040002 common_code
+	.%line 217 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[read8, $0, b0, <<8, a2, 4], ctx_swap[s1]
+.148 00B4400600EF common_code
+	.%line 217 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, $0, AND, @a111]
+.149 008108000200 common_code
+	.%line 218 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/              pkt_hdr->pkt.tci = pkt_hdr->pkt.tci; // + 5 (For debug);
+	alu_shf[$0, --, B, b0, <<16]
+.150 008080280205 common_code
+	.%line 218 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[a2, --, B, a5, <<24]
+.151 00B0C0001316 common_code
+	.%line 218 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b4, +, 22]
+.152 004212000002 common_code
+	.%line 218 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[write8, $0, a2, <<8, b0, 2], ctx_swap[s1]
+.153 00FC17000000 common_code
+	.%line 221 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:588 1
+/******/              QueueLevel0_0 += local_csr_read(local_csr_mailbox_0);
+	local_csr_rd[mailbox0]
+.154 00F000001700 common_code
+	.%line 221 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:588 0
+	immed[b5, 0, <<0]
+.155 00A0C0601406 common_code
+	.%line 221 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[a6, b5, +, a6]
+.156 00FC17400000 common_code
+	.%line 222 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:587 1
+/******/              QueueLevel1_1 += local_csr_read(local_csr_mailbox_1);
+	local_csr_rd[mailbox1]
+.157 00F000000300 common_code
+	.%line 222 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:587 0
+	immed[b0, 0, <<0]
+.%import_expr common_code 158 <27:20:8,17:10:0> _customData &v 32 >> 0xffff &
+.158 00F0400CE002 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+/******/              mem_add64_imm(QueueLevel0_0, &customData.custom5);
+	immed_w0[a2, @_customData+8]
+.%import_expr common_code 159 <27:20:24,17:10:16> _customData &v 32 >> 0xffff0000 &
+.159 00F4400C0002 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	immed_w1[a2, @_customData+8]
+.%import_expr common_code 160 <27:20:8,7:0:0> _customData &v 8 + 0xffff &
+.160 00F040001738 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	immed_w0[b5, @_customData+8]
+.%import_expr common_code 161 <27:20:24,7:0:16> _customData &v 8 + 0xffff0000 &
+.161 00F440001700 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	immed_w1[b5, @_customData+8]
+.162 009080801702 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	dbl_shf[b8, a2, b5, >>8]
+.163 0084803C22FF common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	alu_shf[a3, b8, AND, 255, <<24]
+.164 00C10C182206 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 0
+	ld_field_w_clr[b8, 1100, a6, <<16]
+.165 008BC20C22A9 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:586 1
+	alu_shf[--, b8, OR, 201, <<4]
+.166 024708081703 common_code
+	.%line 223 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:586 0
+	mem[add64_imm, --, a3, <<8, b5, 1], indirect_ref
+.%import_expr common_code 167 <27:20:8,7:0:0> _customData &v 32 >> 0xffff &
+.167 00F040001748 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+/******/              mem_add64_imm(QueueLevel1_1, &customData.custom7);
+	immed_w0[b5, @_customData+24]
+.%import_expr common_code 168 <27:20:24,7:0:16> _customData &v 32 >> 0xffff0000 &
+.168 00F440001700 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	immed_w1[b5, @_customData+24]
+.%import_expr common_code 169 <27:20:8,17:10:0> _customData &v 24 + 0xffff &
+.169 00F0400D2002 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	immed_w0[a2, @_customData+24]
+.%import_expr common_code 170 <27:20:24,17:10:16> _customData &v 24 + 0xffff0000 &
+.170 00F4400C0002 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	immed_w1[a2, @_customData+24]
+.171 008080381702 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	dbl_shf[a3, b5, a2, >>8]
+.172 00948057FE03 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	alu_shf[b5, a3, AND, 255, <<24]
+.173 00C10C100203 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0
+	ld_field_w_clr[a3, 1100, b0, <<16]
+.174 008BC206A603 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 1
+	alu_shf[--, a3, OR, 201, <<4]
+.175 064708081702 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:585 0
+	mem[add64_imm, --, b5, <<8, a2, 1], indirect_ref
+.%import_expr common_code 176 <40:40:13,34:22:0> &bp 203 +
+.176 00D832C08038 common_code
+	.%line 224 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:585 0 203
+	br[l_359#]
+.177 00AAF0000303 common_code
+	.%line 226 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/          } else if (vlan==3) {
+l_355#:
+	alu[--, b0, -, 3]
+.%import_expr common_code 178 <40:40:13,34:22:0> &bp 188 +
+.178 00D82F008121 common_code
+	.%line 226 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 188
+	bne[l_357#]
+.179 00B0C0001314 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/              pkt_hdr->pkt.tci = (pkt_hdr->pkt.tci & 0x1fff) | (1 << 13); // Priority 1
+	alu[b0, b4, +, 20]
+.180 00A8802C0005 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[a2, a5, +carry, 0]
+.181 008080280202 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[a2, --, B, a2, <<24]
+.182 004316040002 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[read8, $0, a2, <<8, b0, 4], ctx_swap[s1]
+.183 00C003120002 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	ld_field_w_clr[a2, 0011, $0, >>0]
+.184 00B400037C02 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, a2, AND, @b95]
+.%import_expr common_code 185 <40:40:13,34:22:0> &bp 199 +
+.185 00D831E08038 common_code
+	.%line 228 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 2 199
+/******/              pkt_hdr->pkt.tci = pkt_hdr->pkt.tci + 15;
+	br[l_5052#], defer[2]
+.186 009B30080221 common_code
+	.%line 227 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 1
+/******/              pkt_hdr->pkt.tci = (pkt_hdr->pkt.tci & 0x1fff) | (1 << 13); // Priority 1
+	alu_shf[b0, b0, OR, 1, <<13]
+.187 00B28000030F common_code
+	.%line 228 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+/******/              pkt_hdr->pkt.tci = pkt_hdr->pkt.tci + 15;
+	alu[b0, 15, +16, b0]
+.188 00AAF0000304 common_code
+	.%line 229 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/          } else if (vlan==4) {
+l_357#:
+	alu[--, b0, -, 4]
+.%import_expr common_code 189 <40:40:13,34:22:0> &bp 203 +
+.189 00D832C08121 common_code
+	.%line 229 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 203
+	bne[l_359#]
+.190 00A0C0201316 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/              pkt_hdr->pkt.tci = (pkt_hdr->pkt.tci & 0x1fff) | (1 << 14); // Priority 2
+	alu[a2, b4, +, 22]
+.191 00B8800C0005 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, a5, +carry, 0]
+.192 009080000200 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[b0, --, B, b0, <<24]
+.193 044312040002 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[read8, $0, b0, <<8, a2, 2], ctx_swap[s1]
+.194 00A030060000 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 1
+	alu[--, --, B, $0]
+.195 008D00220100 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	asr[a2, $0, >>16]
+.196 00C10C080E02 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	ld_field[b3, 1100, a2, <<16]
+.197 009500000D0D common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[b0, a13, AND, b3, >>16]
+.198 009B20080221 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[b0, b0, OR, 1, <<14]
+.199 008108000200 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+l_5052#:
+	alu_shf[$0, --, B, b0, <<16]
+.200 008080280205 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[a2, --, B, a5, <<24]
+.201 00B0C0001316 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b4, +, 22]
+.202 004212000002 common_code
+	.%line 230 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[write8, $0, a2, <<8, b0, 2], ctx_swap[s1]
+.203 00FC0C000000 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:583 1
+/******/      test_me_timestamp = me_tsc_read(); // 0xf1f1f9f8f7f6f5f2; //
+l_359#:
+	local_csr_rd[timestamp_low]
+.204 00F0000C0002 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:583 0
+	immed[a2, 0, <<0]
+.205 00FC0C400000 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:584 1
+	local_csr_rd[timestamp_high]
+.206 00F0000C0003 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:584 0
+	immed[a3, 0, <<0]
+.207 00C003180000 common_code
+	.%line 240 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/      if ((pkt_rxed->pkt_hdr.pkt.tci & 0xfff)==2) {
+	ld_field_w_clr[b0, 0011, a0, >>0]
+.208 00B4400000FF common_code
+	.%line 240 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b0, AND, @a127]
+.209 00AAF0000302 common_code
+	.%line 240 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[--, b0, -, 2]
+.%import_expr common_code 210 <40:40:13,34:22:0> &bp 224 +
+.210 00D838308121 common_code
+	.%line 240 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 3 224
+	bne[l_377#], defer[3]
+.211 008000380003 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 2
+/******/      test_me_timestamp = me_tsc_read(); // 0xf1f1f9f8f7f6f5f2; //
+	alu_shf[a3, --, B, a3, <<0]
+.212 00AA402C0002 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 1
+	alu[a2, 0, OR, a2]
+.213 00AA403C0003 common_code
+	.%line 237 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	alu[a3, 0, OR, a3]
+.%import_expr common_code 214 <40:40:13,34:22:0> &bp 130 +
+.214 00D820A08038 common_code
+	.%line 241 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 2 130
+/******/          pkt_hdr->metadata_m.timestamp3 = test_me_timestamp; //258; //test_me_timestamp; //me_tsc_read();
+	br[_ua_set_64_mem40#], defer[2]
+.215 00F0000CA804 common_code
+	.%line 241 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 1
+	immed[a4, 42, <<0]
+.%import_expr common_code 216 <27:20:8,17:10:0> &bp 217 +
+.216 00F0000F6408 common_code
+	.%line 241 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	load_addr[a8, l_5059#]
+.%import_expr common_code 217 <40:40:13,34:22:0> &bp 130 +
+.217 00D820A08038 common_code
+	.%line 242 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 2 130
+/******/          pkt_hdr->metadata_m.timestamp4 = test_me_timestamp;
+l_5059#:
+	br[_ua_set_64_mem40#], defer[2]
+.218 00F0000CC804 common_code
+	.%line 242 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 1
+	immed[a4, 50, <<0]
+.%import_expr common_code 219 <27:20:8,17:10:0> &bp 220 +
+.219 00F0000F7008 common_code
+	.%line 242 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	load_addr[a8, l_5060#]
+.%import_expr common_code 220 <40:40:13,34:22:0> &bp 130 +
+.220 00D820A08038 common_code
+	.%line 243 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 2 130
+/******/          pkt_hdr->metadata_m.timestamp5 = test_me_timestamp;
+l_5060#:
+	br[_ua_set_64_mem40#], defer[2]
+.221 00F0000CE804 common_code
+	.%line 243 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 1
+	immed[a4, 58, <<0]
+.%import_expr common_code 222 <27:20:8,17:10:0> &bp 223 +
+.222 00F0000F7C08 common_code
+	.%line 243 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	load_addr[a8, l_5061#]
+.%import_expr common_code 223 <40:40:13,34:22:0> &bp 239 +
+.223 00D83BC08038 common_code
+	.%line 243 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 239
+l_5061#:
+	br[l_379#]
+.224 00AAF0000303 common_code
+	.%line 247 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/      } else if ((pkt_rxed->pkt_hdr.pkt.tci & 0xfff)==3) {
+l_377#:
+	alu[--, b0, -, 3]
+.%import_expr common_code 225 <40:40:13,34:22:0> &bp 239 +
+.225 00D83BC08121 common_code
+	.%line 247 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 239
+	bne[l_379#]
+.226 00B0C0001316 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+/******/          pkt_hdr->pkt.tci = pkt_hdr->pkt.tci + 15;
+	alu[b0, b4, +, 22]
+.227 00A8802C0005 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[a2, a5, +carry, 0]
+.228 008080280202 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[a2, --, B, a2, <<24]
+.229 004312040002 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[read8, $0, a2, <<8, b0, 2], ctx_swap[s1]
+.230 00A030060000 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 1
+	alu[--, --, B, $0]
+.231 009D00020100 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 0 fiid:572 0
+	asr[b0, $0, >>16]
+.232 00C10C000201 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	ld_field[a1, 1100, b0, <<16]
+.233 009100080101 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[b0, --, B, a1, >>16]
+.234 00B0C000030F common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b0, +, 15]
+.235 008108000200 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[$0, --, B, b0, <<16]
+.236 008080280205 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu_shf[a2, --, B, a5, <<24]
+.237 00B0C0001316 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	alu[b0, b4, +, 22]
+.238 004212000002 common_code
+	.%line 248 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0
+	mem[write8, $0, a2, <<8, b0, 2], ctx_swap[s1]
+.239 00E800001B00 common_code
+	.%line 250 "/home/zenlab/Documents/MicroC_programs/TestJoy/c_packetprocessing/apps/lab5/wire_main.c" 1 fiid:572 0 0 B6
+/******/  }
+l_379#:
+	rtn[b6]
++ucode_end
