@@ -83,6 +83,18 @@ To boot your OS into a different kernel version, perform the following steps:
 
 Once booted, you can verify the active kernel version by running ```uname -r```. This command should display 4.18.0-041800-generic or a similar version number indicating kernel 4.18 is now active.
 
+To change the default boot order in the GRUB menu, add ```GRUB_DEFAULT="1>3"``` in the ```/etc/default/grub``` file and run ```sudo update-grub```. Whne you reboot the system, the system will boot in the order you've specified in the GRUB file.
+
+For example, assume that the kernel boot order is the fourth one. 
+
+1 in **1**>3 indicates the second entry of the main menu.
+
+<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/images/ubuntu_grub_main_menu.png">
+
+3 in 1>**3** indicates the fourth entry of the submenu.
+
+<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/images/ubuntu_grub_sub_menu.png">
+
 ### Installing the Ethernet Driver
 
 This section details the process of installing the necessary driver for the Realtek ethernet controller commonly found on ASUS motherboards. This driver resolves known compatibility issues with Ubuntu 18.04 and enables functionality of the onboard LAN port.
