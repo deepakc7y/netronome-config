@@ -83,7 +83,7 @@ To boot your OS into a different kernel version, perform the following steps:
 
 Once booted, you can verify the active kernel version by running ```uname -r```. This command should display 4.18.0-041800-generic or a similar version number indicating kernel 4.18 is now active.
 
-To change the default boot order in the GRUB menu, add ```GRUB_DEFAULT="1>3"``` in the ```/etc/default/grub``` file and run ```sudo update-grub```. Whne you reboot the system, the system will boot in the order you've specified in the GRUB file.
+To change the default boot order in the GRUB menu, add ```GRUB_DEFAULT="1>3"``` in the ```/etc/default/grub``` file and run ```sudo update-grub```. When you reboot the system, the system will boot in the order you've specified in the GRUB file.
 
 For example, assume that the kernel boot order is the fourth one. 
 
@@ -152,7 +152,7 @@ Now, reboot and verify installation.
 
 ### Installing P4 Runtime Environment
 
-The P4 Runtime environment can be installed using the following three commands (root priviliges required):
+The P4 Runtime environment can be installed using the following three commands (root privileges required):
 
 - ```tar xvf nfp-sdk-p4-rte-6.1.0.1-preview-3214.ubuntu.x86_64.tgz```
 - ```cd nfp-sdk-6-rte-v6.1.0.1-preview-Ubuntu-Release-r2750-2018-10-10-ubuntu.binary/```
@@ -286,7 +286,7 @@ sudo modprobe -r -v nfp && sudo modprobe nfp nfp_pf_netdev=1
 
 ### Verifying the Kernel Patch for Netronome SmartNICs [Optional]
 
-Netronome identified an issue in the way Linux kernel handles Peripheral Component Interconnect Express (PCIe) configuration. This issue can lead to undesired behavior when working with Netronome SmartNICs. A fix for this issue, known as the ERR47 kernel patch, has been submitted by Netronome and integrated into the kernel.
+Netronome identified an issue in the way the Linux kernel handles Peripheral Component Interconnect Express (PCIe) configuration. This issue can lead to undesired behavior when working with Netronome SmartNICs. A fix for this issue, known as the ERR47 kernel patch, has been submitted by Netronome and integrated into the kernel.
 
 ```
 root@zenlab690:~# if /opt/nfp_pif/scripts/err47_check.sh; then echo "Kernel is good"; else
