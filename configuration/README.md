@@ -89,11 +89,11 @@ For example, assume that the kernel boot order is the fourth one.
 
 1 in **1**>3 indicates the second entry of the main menu.
 
-<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/images/ubuntu_grub_main_menu.png">
+<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/ubuntu_grub_main_menu.png">
 
 3 in 1>**3** indicates the fourth entry of the submenu.
 
-<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/images/ubuntu_grub_sub_menu.png">
+<img src="https://github.com/deepakc7y/netronome-config/blob/main/images/ubuntu_grub_sub_menu.png">
 
 ### Installing the Ethernet Driver
 
