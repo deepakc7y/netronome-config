@@ -12,8 +12,8 @@
   - [SDK Installation](https://github.com/deepakc7y/netronome-config/tree/main/configuration#sdk-installation)
   - [Installing the P4 Runtime Environment](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-p4-runtime-environment)
   - [Installing SRIOV-supported Firmware](https://github.com/deepakc7y/netronome-config/tree/main/configuration#installing-sriov-supported-firmware)
-  - [Creating Virtual Functions by configuring SRIOV](https://github.com/deepakc7y/netronome-config/tree/main/configuration#creating-virtual-functions-by-configuring-sriov)
 * [Additional Optional Configurations]()
+  - [Creating Virtual Functions (VFs)](https://github.com/deepakc7y/netronome-config/tree/main/configuration#creating-virtual-functions-vfs)
   - [To enable NFP ports for 1G RJ45 Connections](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-enable-nfp-ports-for-1g-rj45-connections)
   - [To see the Netronome SmartNIC Physical Interfaces](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
   - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
@@ -133,7 +133,7 @@ EOF
 source ~/.bash_profile
 ```
 
-These commands add the /opt/netronome/bin directory to your system's PATH environment variable. This allows you to access Netronome SDK tools like nfp-sdk6_build and nfp-sdk6_rte from any terminal session without specifying the full path.
+These commands add the ```/opt/netronome/bin``` directory to your system's PATH environment variable. This allows you to access Netronome SDK tools like ```nfp-sdk6_build``` and ```nfp-sdk6_rte``` from any terminal session without specifying the full path.
 
 Now, reboot and verify installation.
 
