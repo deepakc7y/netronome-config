@@ -18,7 +18,7 @@
   - [To see the Netronome SmartNIC Physical Interfaces](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
   - [Verifying the Kernel Patch for Netronome SmartNICs [Optional]](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
   - [Changing Netronome Port Link Speed from 10G to 1G](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
-  - [Configuring Default number of VFs for P4/MicroC Programs](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
+  - [Configuring Default Number of VFs for P4/MicroC Programs](https://github.com/deepakc7y/netronome-config/tree/main/configuration#to-see-the-netronome-smartnic-physical-interfaces)
 
 ## Pre-requisites
 
@@ -315,7 +315,7 @@ phy0=1G (1G)
 phy1=1G (1G)
 ```
 
-### Configuring Default number of VFs for P4/MicroC Programs
+### Configuring Default Number of VFs for P4/MicroC Programs
 
 By default, when you load a P4/MicroC program onto the smartNIC, 4 VFs are initialized. To change the default number, do the following:
 
