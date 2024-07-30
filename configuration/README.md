@@ -45,15 +45,15 @@ By default, the SRIOV Support is disabled. To use the Virtual Functions (VFs), y
 
 It can be done using the following commands
 
-```lspci -vvv -d 19ee:``` to confirm PCIe configuration of SmartNIC(s)
+```sudo lspci -vvv -d 19ee:``` to confirm PCIe configuration of SmartNIC(s)
 
-```dmesg | grep nfp``` to check for system-generated messages the SmartNIC.
+```sudo dmesg | grep nfp``` to check for system-generated messages the SmartNIC.
 
 ### Using the Recommended Kernel Version with Netronome
 
 This section details the process of configuring the Ubuntu 18.04 LTS (Bionic Beaver) system to utilize the kernel version recommended by Netronome.
 
-Based on Netronome's support documentation ([reference](https://help.netronome.com/support/solutions/articles/36000184708-tested-linux-versions)), kernel version 4.15 is officially tested and recommended for compatibility with Netronome solutions. While you may have used a newer kernel version (e.g., 5.4) without encountering issues, adhering to the recommended version will avoid any potential problems.
+Based on Netronome's support documentation ([reference](https://help.netronome.com/support/solutions/articles/36000184708-tested-linux-versions)), kernel version 4.18 is officially tested and recommended for compatibility with Netronome solutions. While you may have used a newer kernel version (e.g., 5.4) without encountering issues, adhering to the recommended version will avoid any potential problems.
 
 To boot your OS into a different kernel version, perform the following steps:
 
@@ -67,20 +67,21 @@ To boot your OS into a different kernel version, perform the following steps:
   - Save the changes and exit the editor (Ctrl+S, then Ctrl+X).
   - ```sudo update-grub``` and reboot the system
 
-- Download Required Kernel Deb Packages: Navigate to the Ubuntu mainline kernel archive for version 4.15 ([source](https://kernel.ubuntu.com/mainline/v4.15/)) and download the following ```.deb``` packages under the ```amd64``` architecture:
-  - linux-headers-4.15.0-041500_4.15.0-041500.201802011154_all.deb
-  - linux-headers-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
-  - linux-image-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
+- Download Required Kernel Deb Packages: Navigate to the Ubuntu mainline kernel archive for version 4.15 ([source](https://kernel.ubuntu.com/mainline/v4.18/)) and download the following ```.deb``` packages under the ```amd64``` architecture:
+  - linux-headers-4.18.0-041800_4.18.0-041800.201808122131_all.deb
+  - linux-headers-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb
+  - linux-image-unsigned-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb
+  - linux-modules-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb
   
 - Install Downloaded Packages:
-  - Create a new directory to store the downloaded .deb files (e.g., v4.15).
+  - Create a new directory to store the downloaded .deb files (e.g., v4.18).
   - Move the downloaded files to the newly created directory.
-  - Navigate to the directory using ```cd v4.15/```
+  - Navigate to the directory using ```cd v4.18/```
   - Install the packages using ```sudo dpkg -i *.deb```
 
-- Reboot your system. During the boot process, you should see a menu with available kernel versions (enabled by modifying GRUB_TIMEOUT_STYLE in step 2). Select the newly installed kernel version (e.g., ```4.15.0-041500-generic```) and boot into your system.
+- Reboot your system. During the boot process, you should see a menu with available kernel versions (enabled by modifying GRUB_TIMEOUT_STYLE in step 2). Select the newly installed kernel version (e.g., ```4.18.0-041800-generic```) and boot into your system.
 
-Once booted, you can verify the active kernel version by running ```uname -r```. This command should display 4.15.0-041500-generic or a similar version number indicating kernel 4.15 is now active.
+Once booted, you can verify the active kernel version by running ```uname -r```. This command should display 4.18.0-041800-generic or a similar version number indicating kernel 4.18 is now active.
 
 ### Installing the Ethernet Driver
 
@@ -100,14 +101,14 @@ This section details the process of installing and configuring the Netronome Sof
 
 ### SDK Installation
 - Add Netronome Public Key
-  - ```wget https://rpm.netronome.com/gpg/NetronomePublic.key```
+  - ```sudo wget https://rpm.netronome.com/gpg/NetronomePublic.key```
   - ```sudo apt-key add NetronomePublic.key```
 
 This downloads the Netronome public key and adds it to your system's trusted keyrings. This key is used to verify the integrity of the software packages you'll install from Netronome repositories.
 
 - Add Netronome Repository
-  - ```mkdir -p /etc/apt/sources.list.d/```
-  - ```echo "deb https://deb.netronome.com/apt stable main" > /etc/apt/sources.list.d/netronome.list```
+  - ```sudo mkdir -p /etc/apt/sources.list.d/```
+  - ```sudo echo "deb https://deb.netronome.com/apt stable main" > /etc/apt/sources.list.d/netronome.list```
   - ```sudo apt update```
 
 These commands create a new directory for custom APT sources and add a new entry for the Netronome repository. Finally, it updates the package list to include packages available from the Netronome repository.
@@ -158,6 +159,10 @@ Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/n
 - ```sudo make clean``` // cleans up any temporary build files
 - ```sudo modprobe -r -v nfp``` // unloads any currently loaded nfp module
 - ```sudo modprobe nfp nfp_dev_cpp=1 nfp_pf_netdev=0``` // reloads the nfp module
+
+To successfully compile a P4 program, you will have to copy the ```p4c-bm2-ss``` file to the ```/opt/netronome/p4/libexec/``` directory using the following command:
+
+```sudo cp -R /opt/netronome/p4/bin/p4c-bm2-ss /opt/netronome/p4/libexec/```
 
 ### Installing SRIOV-supported firmware
 Netronome SmartNICs offer the ability to create Virtual Functions (VFs), essentially splitting the physical network interface card (NIC) into multiple logical ones. This enables efficient resource utilization by allowing you to share the capabilities of a single SmartNIC with multiple virtual machines (VMs) or containerized applications.
