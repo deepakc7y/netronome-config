@@ -179,7 +179,9 @@ version: no-src-ver (o-o-t)
 firmware-version: 0.0.3.5 0.25 sriov-2.1.16.1 nic
 ```
 
-### Creating Virtual Functions by configuring SRIOV
+## Additional Configurations
+
+### Creating Virtual Functions (VFs)
 
 **Check Current VF Count:** Use the ```cat /sys/class/net/enp3s0np0np0/device/sriov_numvfs``` command to determine the number of currently configured VFs on your SmartNIC. Initially, this value will be ```zero```.
 
@@ -215,8 +217,6 @@ Kernel modules: nfp
 ```
 
 ```03:08.0``` and ```03:08.1``` are the PCI addresses of our two VFs and you can also see that they use ```nfp_netvf``` driver instead of ```nfp``` driver used by the PF.
-
-## Additional Configurations
 
 ### To enable NFP ports for 1G RJ45 Connections
 
