@@ -102,7 +102,10 @@ This section details the process of installing the necessary driver for the Real
 - Ensure you have an Internet connection (temporary solution like a WiFi card)
 - Downloaded driver package ```r8125-9.007.01.tar.bz2``` and extract it
 - ```sudo apt update```
-- ```sudo apt install make make-guile gcc```
+- ```sudo apt install make```
+- ```sudo apt install make-guile```
+- ```sudo apt install gcc```
+- ```sudo apt install libelf-dev``` 
 - ```cd r8125-9.007.01/```
 - ```sudo chmod +x autorun.sh```
 - ```sudo ./autorun.sh```
