@@ -1,6 +1,6 @@
-The ```basic.p4``` is a P4 program that performs IP forwarding and also created and modifies a metadata header. For every incoming packet, it looks at the destination IP address, modifies the source and destination IP address, decrements the TTL field and sends the packet out on the port specified in the ```user_config.json``` file. The metadata header field ```p10``` is modified using a MicroC function called ```"populate_if_ts()"``` which adds the current global timestamp value to the p10 header field. The ```user_config.json``` file in this example forwards a packet from port p0 to p1 and vice versa.
+The `basic.p4` is a P4 program that performs IP forwarding and also created and modifies a metadata header. For every incoming packet, it looks at the destination IP address, modifies the source and destination IP address, decrements the TTL field and sends the packet out on the port specified in the `user_config.json` file. The metadata header field `p10` is modified using a MicroC function called `"populate_if_ts()"` which adds the current global timestamp value to the p10 header field. The `user_config.json` file in this example forwards a packet from port p0 to p1 and vice versa.
 
-For this example, I'm using the ```Netronome Agilio 2x10GbE smartNIC```. To run the above program on your Netronome SmartNIC, run the following commands:
+For this example, I'm using the `Netronome Agilio 2x10GbE smartNIC`. To run the above program on your Netronome SmartNIC, run the following commands:
 
 #### Compile the P4 and MicroC program to a firmware file
 ```
