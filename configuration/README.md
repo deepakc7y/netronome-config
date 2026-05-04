@@ -71,23 +71,23 @@ To boot your OS into a different kernel version, perform the following steps:
   - linux-headers-4.15.0-041500_4.15.0-041500.201802011154_all.deb
   - linux-headers-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
   - linux-image-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb
-  
+
 - Install Downloaded Packages:
   - Create a new directory to store the downloaded .deb files (e.g., v4.18).
   - Move the downloaded files to the newly created directory.
   - Navigate to the directory using `cd v4.15/`
   - Install the packages using `sudo dpkg -i *.deb`
 
-- Following commands are used to perform the previous two steps of downloading and installing a kernel (For eg, v4.18)
+- Following commands are used to perform the previous two steps of downloading and installing a kernel (For eg, v4.15)
 ```
-mkdir /tmp/kernelv4.18
-cd /tmp/kernelv4.18
-BASE=http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.18/
+mkdir /tmp/kernelv4.15
+cd /tmp/kernelv4.15
+BASE=http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.15/
 wget \
-  $BASE/linux-headers-4.18.0-041800_4.18.0-041800.201808122131_all.deb \
-  $BASE/linux-headers-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb \
-  $BASE/linux-image-unsigned-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb \
-  $BASE/linux-modules-4.18.0-041800-generic_4.18.0-041800.201808122131_amd64.deb
+  $BASE/linux-headers-4.15.0-041500_4.15.0-041500.201802011154_all.deb \
+  $BASE/linux-headers-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb \
+  $BASE/linux-image-4.15.0-041500-generic_4.15.0-041500.201802011154_amd64.deb \
+  #$BASE/linux-modules-4.15.0-041500-generic_4.15.0-041800.201808122131_amd64.deb
 sudo dpkg -i *.deb
 ```
 
@@ -109,16 +109,15 @@ For example, assume that the kernel boot order is the fourth one.
 
 ### Installing the Ethernet Driver
 
-This section details the process of installing the necessary driver for the Realtek ethernet controller commonly found on ASUS motherboards. This driver resolves known compatibility issues with Ubuntu 18.04 with kernel v4.15/4.18 and enables functionality of the onboard LAN port.
+This section details the process of installing the necessary driver for the Realtek ethernet controller commonly found on ASUS motherboards. This driver resolves known compatibility issues with Ubuntu 18.04 with kernel v4.15 and enables functionality of the onboard LAN port.
 
 - Ensure you have an Internet connection (temporary solution like a WiFi card)
 - Downloaded driver package `r8125-9.007.01.tar.bz2` and extract it
 - Install the driver using following commands:
   ```
   sudo apt update
-  sudo apt install make make-guile gcc
+  sudo apt install build-essential
   cd r8125-9.007.01/
-  sudo chmod +x autorun.sh
   sudo ./autorun.sh
   ```
 
@@ -144,7 +143,7 @@ This downloads the Netronome public key and adds it to your system's trusted key
 
 These commands create a new directory for custom APT sources and add a new entry for the Netronome repository. Finally, it updates the package list to include packages available from the Netronome repository.
 
-```sudo apt install agilio-naming-policy libftdi1 libjansson4 build-essential linux-headers-`uname -r` dkms git net-tools libelf-dev```
+```sudo apt install agilio-naming-policy libftdi1 libjansson4 build-essential dkms net-tools libelf-dev```
 
 This command installs various dependencies required for building and running the Netronome SDK, including libraries for interfacing with hardware (libftdi1), data serialization (libjansson4), development tools (build-essential), kernel headers for the current kernel version (linux-headers-uname -r), kernel modules support (dkms), version control system (git), network utilities (net-tools), and ELF file handling (libelf-dev).
 
@@ -189,10 +188,11 @@ Download the nfp-drv-kmods repository from [here](https://github.com/Netronome/n
 ```
 git clone https://github.com/Netronome/nfp-drv-kmods.git
 cd nfp-drv-kmods/
-sudo make           # compiles the kernel module source code into a loadable module
+sudo apt install libelf-dev ethtool
+make           # compiles the kernel module source code into a loadable module
 sudo make install   # installs the compiled module (nfp.ko) into the appropriate kernel module directory.
-sudo depmod -a      # informs the kernel dependency manager (depmod) about the newly installed module.
-sudo make clean     # cleans up any temporary build files
+#sudo depmod -a      # informs the kernel dependency manager (depmod) about the newly installed module.
+make clean     # cleans up any temporary build files
 sudo modprobe -r -v nfp  # unloads any currently loaded nfp module
 sudo modprobe nfp nfp_dev_cpp=1 nfp_pf_netdev=0  # reloads the nfp module
 ```
